@@ -9,31 +9,32 @@
        xmlhttp = new XMLHttpRequest();
     }
     function login() {
-        var url = "http://localhost:8080/RESTtest/rest/login"
+        var url = "http://localhost:8080/course_catalog_filter/rest/login"
         xmlhttp.open('POST',url,true);
 		xmlhttp.setRequestHeader("Content-type", "application/json");
-		xmlhttp.responseType = "json";
-		
+		xmlhttp.responseType = '';
+	
 		var parameters = {email: document.getElementById("email").value, pass: document.getElementById("pass").value};
 		var myJSON = JSON.stringify(parameters);
 		xmlhttp.send(myJSON);
+		//var httpResponse = xmlhttp.response;
+		//alert("http Response: " + httpResponse);
+        xmlhttp.onreadystatechange = function() {  
 		
-		var httpResponse = xmlhttp.response;
-		alert("http Response: " + httpResponse);
-		
-        xmlhttp.onreadystatechange = function() {   
-               if (xmlhttp.readyState == 4) {
-                  if (xmlhttp.status == 200) {
-                       if (xmlhttp.response == "Success") {
-                          alert("logged in");
+               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			   
+				var httpResponse = JSON.parse(xmlhttp.response);
+				console.log("Login Status: " + httpResponse.status);
+
+                       if (httpResponse.status == "Success") {
+                          console.log("logged in");
                        }
                        else {
-                           alert("Invalid Credentials " + "http: " + xmlhttp.status + " JSON" + myJSON);
+                           console.log("Invalid Credentials " + "HTTP STATUS: " + xmlhttp.status + " Sent JSON: " + myJSON);
                        }
                  }
                  else
-                       alert("Error -> " + xmlhttp.status + "  " + myJSON);
-              }
+                       console.log("Error: HTTP STATUS: " + xmlhttp.status + " Sent JSON " + myJSON);
         };
     }
   </script>
@@ -43,7 +44,7 @@
    <table>
    <tr>
        <td>Enter Email :  </td>
-       <td><input type="text" id="email" value="test@testemail.com" size="20"/> 
+       <td><input type="text" id="email" value="testemail@test.com" size="20"/> 
    </tr>
    <tr>
        <td>Enter password :  </td>

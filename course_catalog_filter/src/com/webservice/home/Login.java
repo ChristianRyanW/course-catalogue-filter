@@ -32,8 +32,10 @@ public class Login {
 	private static loginStatus loginStatus;
 	
 	@POST
-	@Consumes("application/json")
+	//@Consumes("application/json")
 	//@Produces("applicaiton/json")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response sayConfirm(String msg) {
 		try {
 			
@@ -45,21 +47,25 @@ public class Login {
 		
       if(Validate.checkUser(email, pass))
       {
-      	String output = "Success"; 
+      	//String output = "Success"; 
       	
-      	//loginStatus logStat = new loginStatus();
-      	//logStat.setStatus("Success");
+      	loginStatus logStat = new loginStatus();
+      	logStat.setStatus("Success");
+      	
+      	System.out.println(logStat);
       	
       	//return Response.status(200).entity(logStat).build();
       	
-      	//return Response.ok(output, MediaType.APPLICATION_JSON).build();
-      	return Response.status(200).entity(output).build();
+      	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
+      	//return Response.status(200).entity(output).build();
       	//return Response.ok(output).build();
       }
       else
       {
-      	String output = "Failure";
-      	return Response.ok(output, MediaType.APPLICATION_JSON).build();
+      	//String output = "Failure";
+      	loginStatus logStat = new loginStatus();
+      	logStat.setStatus("Failure");
+      	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }		
 		}
 		catch(Exception e){
