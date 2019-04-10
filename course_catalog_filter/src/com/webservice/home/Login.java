@@ -5,6 +5,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import java.security.SecureRandom;
+
 //import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
@@ -19,14 +22,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 @Path("/login")
 public class Login {
 	
+	
 	public static class loginStatus{
 		private String status;
+		private String token;
 		
-		public void setStatus(String status) {
+		public void setStatus(String status, String token) {
 			this.status = status;
+			this.token = token;
 		}
 		
 		public String getstatus() {return status;}
+		public String gettoken() {return token;}
 	}
 	
 	private static loginStatus loginStatus;
@@ -48,9 +55,14 @@ public class Login {
       if(Validate.checkUser(email, pass))
       {
       	//String output = "Success"; 
-      	
+    	  
+    	  SecureRandom random = new SecureRandom();
+    	  byte bytes[] = new byte[128];
+    	  random.nextBytes(bytes);
+    	  String token = bytes.toString();
+    	  
       	loginStatus logStat = new loginStatus();
-      	logStat.setStatus("Success");
+      	logStat.setStatus("Success", token);
       	
       	System.out.println(logStat);
       	
@@ -64,7 +76,7 @@ public class Login {
       {
       	//String output = "Failure";
       	loginStatus logStat = new loginStatus();
-      	logStat.setStatus("Failure");
+      	logStat.setStatus("Failure", "");
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }		
 		}

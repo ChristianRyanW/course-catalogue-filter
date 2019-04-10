@@ -106,17 +106,17 @@ public class homeClient {
 			System.out.println("POST SUCCESS Login");
 			System.out.println(response2.readEntity(String.class));
 			}
-		/*
+		
 		//POST data pull test
 		Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
-		if (response2.getStatus() != 200) {
-			throw new RuntimeException("Failure HTTP Status : " + response2.getStatus());
+		if (response3.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response3.getStatus());
 			}
-		if (response2.getStatus() == 200) {
+		if (response3.getStatus() == 200) {
 			System.out.println("POST SUCCESS Data");
-			System.out.println(response2.readEntity(String.class));
+			System.out.println(response3.readEntity(String.class));
 			} 
-			*/
+			
 		} 
 		
 		catch (Exception e){

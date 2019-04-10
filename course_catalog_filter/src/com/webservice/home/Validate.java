@@ -14,22 +14,17 @@ public class Validate
 
  	 //creating connection with the database 
          
-         /*
+         
          Connection con=DriverManager.getConnection
                         ("jdbc:mysql://144.167.232.127:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
-         */
-         
-         Connection con=DriverManager.getConnection
-                 ("jdbc:mysql://localhost:3306/testschema","root","tacotaco");
-         
-         /*
          PreparedStatement ps =con.prepareStatement
                              ("select * from user where user_email=? and password_hash=?");
-         */
-         
+         /*
+         Connection con=DriverManager.getConnection
+                 ("jdbc:mysql://localhost:3306/testschema","root","tacotaco");
          PreparedStatement ps =con.prepareStatement
                  ("select * from users where email=? and pass=?");
-         
+         */
          
          ps.setString(1, email);
          ps.setString(2, pass);
