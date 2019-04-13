@@ -67,7 +67,7 @@ public class homeClient {
 		userProfile.setCred("testemail@test.com", "password123" );
 		
 		userProfile2 = new userProfile();
-		userProfile2.setCred("regTest@test.com", "passpass321");
+		userProfile2.setCred("regTest111@test.com", "passpass321");
 		
 		try {
 		String jsonInString = mapper.writeValueAsString(userProfile);
@@ -115,16 +115,16 @@ public class homeClient {
 			}
 		
 		//POST data pull test
-		/*Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
+		Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
 		if (response3.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response3.getStatus());
 			}
 		if (response3.getStatus() == 200) {
 			System.out.println("POST SUCCESS Data");
 			System.out.println(response3.readEntity(String.class));
-			} */
+			} 
 		//POST Register test
-		Response response4 = webTarget.path("rest").path("register").request("application/json").post(Entity.json(registerJSON));
+		/*Response response4 = webTarget.path("rest").path("register").request("application/json").post(Entity.json(registerJSON));
 		if (response4.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response4.getStatus());
 			}
@@ -132,7 +132,7 @@ public class homeClient {
 			System.out.println("POST SUCCESS Register");
 			System.out.println(response4.readEntity(String.class));
 			} 
-			
+			*/
 		} 
 		
 		catch (Exception e){

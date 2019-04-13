@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 
 @Path("/data")
@@ -27,35 +30,36 @@ public class ReadData {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response sayConfirm(String msg) {
+	public Response sayConfirm() {
 		try {
+			
 		ObjectMapper mapper = new ObjectMapper();
-		JsonNode actualObj = mapper.readTree(msg);
+		ArrayNode jArray = mapper.createArrayNode();
+		
+		//JsonNode actualObj = mapper.readTree(msg);
 		/*
 		String course_subject = actualObj.get("course_subject").textValue();
 		String course_number = actualObj.get("course_number").textValue();
 		String course_name = actualObj.get("course_name").textValue();
 		String course_desc = actualObj.get("course_desc").textValue();
-		  */     
+		 */  
 		
-		String course_subject = "course_subject";
-		String course_number = "course_number";
-		String course_name = "course_name";
-		String course_desc = "course_desc";
+		String course_subject;
+		String course_number;
+		String course_name;
+		String course_desc;
 		
+		DataClass.CourseData CourseData = new DataClass.CourseData();
+		
+		List<DataClass.CourseData> courses = new ArrayList<>();
 		
         try{
-        	System.out.println("Before DB Connection");
                Class.forName("com.mysql.jdbc.Driver");
+            
+               Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                
-               Connection con=DriverManager.getConnection
-                              ("jdbc:mysql://144.167.232.127:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
-               
-               PreparedStatement ps =con.prepareStatement
-                                   ("SELECT * FROM course");
-               
-               System.out.println("DB CONNECTION SUCCESS");
-
+               PreparedStatement ps =con.prepareStatement("SELECT * FROM course");
+           
                ResultSet rs =ps.executeQuery();
                
                while (rs.next()) {
@@ -63,22 +67,26 @@ public class ReadData {
             	course_number = rs.getString("course_number");
             	course_name = rs.getString("course_name");
             	course_desc = rs.getString("course_desc");
-            	
+            	/*
                	output = "Course Subject: " + course_subject;
             	output2 = "Course Number:  " + course_number;
             	output3 = "Course Name: " + course_name;
             	output4 = "Course Description " + course_desc;
+            	*/
+            	CourseData.setClass(course_subject, course_number, course_name, course_desc);
+            	courses.add(CourseData);
             	
-            	System.out.print(output+ "\n" + output2+ "\n" + output3+ "\n" + output4 + "\n \n");
+            	//System.out.print(output+ "\n" + output2+ "\n" + output3+ "\n" + output4 + "\n \n");
                }
-               
                rs.close();
                
+
             }catch(Exception e)
             {
                 e.printStackTrace();
             }
-    	return Response.status(200).entity(output).build();
+     	return Response.ok(courses, MediaType.APPLICATION_JSON).build();
+    	//return Response.status(200).entity(output).build();
 		}
 		catch(Exception e){
 			e.printStackTrace();
