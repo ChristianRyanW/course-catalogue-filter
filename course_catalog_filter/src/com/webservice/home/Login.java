@@ -3,7 +3,7 @@ package com.webservice.home;
 //import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+//import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import java.security.SecureRandom;
@@ -22,21 +22,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 @Path("/login")
 public class Login {
 	
-	
-	public static class loginStatus{
-		private String status;
-		private String token;
-		
-		public void setStatus(String status, String token) {
-			this.status = status;
-			this.token = token;
-		}
-		
-		public String getstatus() {return status;}
-		public String gettoken() {return token;}
-	}
-	
-	private static loginStatus loginStatus;
+	private static DataClass.loginStatus loginStatus;
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -53,11 +39,11 @@ public class Login {
       if(Validate.checkUser(email, pass))
       {	  
     	  SecureRandom random = new SecureRandom();
-    	  byte bytes[] = new byte[128];
+    	  byte bytes[] = new byte[255]; //128
     	  random.nextBytes(bytes);
     	  String token = bytes.toString();
     	  
-      	loginStatus logStat = new loginStatus();
+      	DataClass.loginStatus logStat = new DataClass.loginStatus();
       	logStat.setStatus("Success", token);
       	
       	System.out.println(logStat);
@@ -66,7 +52,7 @@ public class Login {
       }
       else
       {
-      	loginStatus logStat = new loginStatus();
+      	DataClass.loginStatus logStat = new DataClass.loginStatus();
       	logStat.setStatus("Failure", "");
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }		
