@@ -39,8 +39,6 @@ public class Login {
 	private static loginStatus loginStatus;
 	
 	@POST
-	//@Consumes("application/json")
-	//@Produces("applicaiton/json")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response sayConfirm(String msg) {
@@ -53,9 +51,7 @@ public class Login {
 			
 		
       if(Validate.checkUser(email, pass))
-      {
-      	//String output = "Success"; 
-    	  
+      {	  
     	  SecureRandom random = new SecureRandom();
     	  byte bytes[] = new byte[128];
     	  random.nextBytes(bytes);
@@ -66,15 +62,10 @@ public class Login {
       	
       	System.out.println(logStat);
       	
-      	//return Response.status(200).entity(logStat).build();
-      	
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
-      	//return Response.status(200).entity(output).build();
-      	//return Response.ok(output).build();
       }
       else
       {
-      	//String output = "Failure";
       	loginStatus logStat = new loginStatus();
       	logStat.setStatus("Failure", "");
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();

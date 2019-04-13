@@ -1,8 +1,9 @@
 package com.webservice.home;
 
+
 import java.sql.*;
 
-public class Validate
+public class RegisterValidation
  {
      public static boolean checkUser(String email,String pass) 
      {
@@ -14,7 +15,6 @@ public class Validate
 
  	 //creating connection with the database 
          
-         
          Connection con=DriverManager.getConnection
                         ("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
          PreparedStatement ps =con.prepareStatement
@@ -25,7 +25,6 @@ public class Validate
          PreparedStatement ps =con.prepareStatement
                  ("select * from users where email=? and pass=?");
          */
-         
          ps.setString(1, email);
          ps.setString(2, pass);
          ResultSet rs =ps.executeQuery();

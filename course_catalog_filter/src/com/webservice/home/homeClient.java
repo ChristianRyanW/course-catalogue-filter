@@ -49,6 +49,7 @@ public class homeClient {
 	}
 	
 	private static userProfile userProfile;
+	private static userProfile userProfile2;
 	private static courseData courseData;
 
 	
@@ -65,9 +66,15 @@ public class homeClient {
 		userProfile = new userProfile();
 		userProfile.setCred("testemail@test.com", "password123" );
 		
+		userProfile2 = new userProfile();
+		userProfile2.setCred("regTest@test.com", "passpass321");
+		
 		try {
 		String jsonInString = mapper.writeValueAsString(userProfile);
 		System.out.println(jsonInString);
+		
+		String registerJSON = mapper.writeValueAsString(userProfile2);
+		System.out.println(registerJSON);
 
 		// response
 		System.out.println(webTarget.path("rest").path("home").request()
@@ -108,13 +115,22 @@ public class homeClient {
 			}
 		
 		//POST data pull test
-		Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
+		/*Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
 		if (response3.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response3.getStatus());
 			}
 		if (response3.getStatus() == 200) {
 			System.out.println("POST SUCCESS Data");
 			System.out.println(response3.readEntity(String.class));
+			} */
+		//POST Register test
+		Response response4 = webTarget.path("rest").path("register").request("application/json").post(Entity.json(registerJSON));
+		if (response4.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response4.getStatus());
+			}
+		if (response4.getStatus() == 200) {
+			System.out.println("POST SUCCESS Register");
+			System.out.println(response4.readEntity(String.class));
 			} 
 			
 		} 
