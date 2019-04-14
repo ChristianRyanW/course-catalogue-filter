@@ -67,10 +67,10 @@ public class homeClient {
 		userProfile.setCred("testemail@test.com", "password123" );
 		
 		userProfile2 = new userProfile();
-		userProfile2.setCred("regTest111@test.com", "passpass321");
+		userProfile2.setCred("HASHHASH_Test@test.com", "HASHpasspass321HASH");
 		
 		try {
-		String jsonInString = mapper.writeValueAsString(userProfile);
+		String jsonInString = mapper.writeValueAsString(userProfile2);
 		System.out.println(jsonInString);
 		
 		String registerJSON = mapper.writeValueAsString(userProfile2);
@@ -131,8 +131,8 @@ public class homeClient {
 		if (response4.getStatus() == 200) {
 			System.out.println("POST SUCCESS Register");
 			System.out.println(response4.readEntity(String.class));
-			} 
-			*/
+			} */
+			
 		} 
 		
 		catch (Exception e){

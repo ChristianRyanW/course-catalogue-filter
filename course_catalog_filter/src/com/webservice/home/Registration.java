@@ -7,7 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 //import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
@@ -36,7 +39,7 @@ public class Registration {
 		public String geterror() {return error;}
 	}
 	
-	private static RegisterStatus registerStatus;
+	//private static RegisterStatus registerStatus;
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -50,7 +53,7 @@ public class Registration {
 		String pass = actualObj.get("pass").textValue();
 			
 		
-    if(!RegisterValidation.checkUser(email, pass))
+    if(!RegisterValidation.checkUser(email))
     {	  
     	String error = "No Errors";
     	RegisterStatus regStat = new RegisterStatus();
@@ -58,7 +61,9 @@ public class Registration {
     	
     	System.out.println(regStat);
     	
-    	RegisterNewUser.newUser(email, pass);
+    	String passHash = PasswordHashing.main(pass);
+    	
+    	RegisterNewUser.newUser(email, passHash);
     	
     	return Response.ok(regStat, MediaType.APPLICATION_JSON).build();
     }

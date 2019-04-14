@@ -7,7 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 //import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
@@ -36,18 +39,26 @@ public class Login {
 		String pass = actualObj.get("pass").textValue();
 			
 		
+		
+		String passHash = PasswordHashing.main(pass);
+		System.out.println(passHash);
+		
+		boolean passHashValid = PasswordHashValidate.main(pass);
+		System.out.println("HashValid?: " + passHashValid);
+		System.out.println("pass: " + pass);
+		
+		
+		
       if(Validate.checkUser(email, pass))
       {	  
-    	  SecureRandom random = new SecureRandom();
-    	  byte bytes[] = new byte[255]; //128
-    	  random.nextBytes(bytes);
-    	  String token = bytes.toString();
+    	  SecureRandom randomTok = new SecureRandom();
+    	  byte bytesTok[] = new byte[255]; //128
+    	  randomTok.nextBytes(bytesTok);
+    	  String token = bytesTok.toString();
     	  
       	DataClass.loginStatus logStat = new DataClass.loginStatus();
       	logStat.setStatus("Success", token);
-      	
       	System.out.println(logStat);
-      	
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }
       else
