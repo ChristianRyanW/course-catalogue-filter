@@ -101,6 +101,7 @@ public class homeClient {
 			System.out.println(response4.readEntity(String.class));
 			} */
 			
+		//TestingSQLFunction.Test();
 		} 
 		
 		catch (Exception e){

@@ -29,6 +29,9 @@ public class Login {
     	String token = TokenGenerator.nextToken();
       	DataClass.loginStatus logStat = new DataClass.loginStatus();
       	logStat.setStatus("Success", token);
+      	
+      	StoreUserToken.sessionToken(token, email);
+      	
       	System.out.println(logStat);
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }

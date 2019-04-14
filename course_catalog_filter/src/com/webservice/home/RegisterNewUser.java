@@ -11,8 +11,8 @@ public class RegisterNewUser
      try{
         Class.forName("com.mysql.cj.jdbc.Driver");
   
-        Connection con=DriverManager.getConnection
-                       ("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+        Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+        
         Statement ps =con.createStatement();
         
         String sql = ("INSERT INTO user VALUES(" + "'" + email + "'" + "," + "'" + "" + "'" + "," + "'" + pass + "'" + "," + 0 + ")");
