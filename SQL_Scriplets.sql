@@ -21,6 +21,16 @@ FROM HASQUALITY
 WHERE HASQUALITY.tag_name = 'AI';
 
 -- This is to get all of the courses that have tags that the user has saved.
-SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number
+SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, 
 FROM HASQUALITY, INTERESTS
 WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQUALITY.tag_name;
+
+-- Get list of all tags in database
+SELECT tag_name
+FROM TAG;
+
+
+--
+SELECT password_hash
+FROM USER
+WHERE user_email='user_email_variable';
