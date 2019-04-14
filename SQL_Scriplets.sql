@@ -20,8 +20,8 @@ SELECT course_subject, course_number
 FROM HASQUALITY
 WHERE HASQUALITY.tag_name = 'AI';
 
--- This is to get all of the courses that have tags that the user has saved.
-SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, 
+-- This is to get all of the courses that have tags that the user has saved and their count
+SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, getCourseTagCount(course_subject, course_number, 'rweeks2010@hotmail.com')
 FROM HASQUALITY, INTERESTS
 WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQUALITY.tag_name;
 
@@ -29,8 +29,7 @@ WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQU
 SELECT tag_name
 FROM TAG;
 
-
---
+-- get user password hash using email
 SELECT password_hash
 FROM USER
 WHERE user_email='user_email_variable';
