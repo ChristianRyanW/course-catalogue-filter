@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -22,39 +23,20 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 @Path("/data")
 public class ReadData {
 	
-   	String output;
-	String output2;
-	String output3;
-	String output4;
-	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response sayConfirm() {
 		try {
-			
-		ObjectMapper mapper = new ObjectMapper();
-		ArrayNode jArray = mapper.createArrayNode();
-		
-		//JsonNode actualObj = mapper.readTree(msg);
-		/*
-		String course_subject = actualObj.get("course_subject").textValue();
-		String course_number = actualObj.get("course_number").textValue();
-		String course_name = actualObj.get("course_name").textValue();
-		String course_desc = actualObj.get("course_desc").textValue();
-		 */  
-		
 		String course_subject;
 		String course_number;
 		String course_name;
 		String course_desc;
 		
-		DataClass.CourseData CourseData = new DataClass.CourseData();
-		
 		List<DataClass.CourseData> courses = new ArrayList<>();
 		
         try{
-               Class.forName("com.mysql.jdbc.Driver");
+               Class.forName("com.mysql.cj.jdbc.Driver");
             
                Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                
@@ -66,27 +48,19 @@ public class ReadData {
             	course_subject = rs.getString("course_subject");
             	course_number = rs.getString("course_number");
             	course_name = rs.getString("course_name");
-            	course_desc = rs.getString("course_desc");
-            	/*
-               	output = "Course Subject: " + course_subject;
-            	output2 = "Course Number:  " + course_number;
-            	output3 = "Course Name: " + course_name;
-            	output4 = "Course Description " + course_desc;
-            	*/
+               	course_desc = rs.getString("course_desc");
+
+        		DataClass.CourseData CourseData = new DataClass.CourseData();
             	CourseData.setClass(course_subject, course_number, course_name, course_desc);
             	courses.add(CourseData);
-            	
-            	//System.out.print(output+ "\n" + output2+ "\n" + output3+ "\n" + output4 + "\n \n");
                }
                rs.close();
                
-
             }catch(Exception e)
             {
                 e.printStackTrace();
             }
      	return Response.ok(courses, MediaType.APPLICATION_JSON).build();
-    	//return Response.status(200).entity(output).build();
 		}
 		catch(Exception e){
 			e.printStackTrace();

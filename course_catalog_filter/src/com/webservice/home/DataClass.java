@@ -40,10 +40,9 @@ public class DataClass {
 			this.course_name = course_name;
 			this.course_desc = course_desc;
 		}
-		
 		public String getcourse_subject() {return course_subject;}
 		public String getcourse_number() {return course_number;}
-		public String getcourse_name() {return course_number;}
-		public String getcourse_desc() {return course_number;}
+		public String getcourse_name() {return course_name;}
+		public String getcourse_desc() {return course_desc;}
 	}
 }
