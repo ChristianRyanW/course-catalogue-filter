@@ -50,7 +50,7 @@ public class homeClient {
 	
 	private static userProfile userProfile;
 	private static userProfile userProfile2;
-	private static courseData courseData;
+	//private static courseData courseData;
 
 	
 	private static final String webServiceURI = "http://localhost:8080/course_catalog_filter";

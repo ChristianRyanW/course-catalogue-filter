@@ -8,11 +8,9 @@ import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordHashValidate {
 	
-	public static boolean main(String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
+	public static boolean main(String originalPassword, String passHash) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        String generatedSecuredPasswordHash = PasswordHashing.main(originalPassword);
-
-        boolean matched = validatePassword(originalPassword, generatedSecuredPasswordHash);
+        boolean matched = validatePassword(originalPassword, passHash);
         return matched;
     }
      

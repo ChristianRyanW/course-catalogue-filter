@@ -18,7 +18,8 @@ public class Validate
          Connection con=DriverManager.getConnection
                         ("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
          PreparedStatement ps =con.prepareStatement
-                             ("select * from user where user_email=? and password_hash=?");
+        		 		("SELECT password_hash FROM USER WHERE user_email=?");
+                             //("select * from user where user_email=? and password_hash=?");
          /*
          Connection con=DriverManager.getConnection
                  ("jdbc:mysql://localhost:3306/testschema","root","tacotaco");
@@ -27,9 +28,16 @@ public class Validate
          */
          
          ps.setString(1, email);
-         ps.setString(2, pass);
+         //ps.setString(2, pass);
          ResultSet rs =ps.executeQuery();
-         st = rs.next();
+         
+         String passHash = "";
+         while (rs.next()) {
+         passHash = rs.getString("password_hash");
+         }
+         st = PasswordHashValidate.main(pass, passHash);
+         
+         //st = rs.next();
 
       }catch(Exception e)
       {
