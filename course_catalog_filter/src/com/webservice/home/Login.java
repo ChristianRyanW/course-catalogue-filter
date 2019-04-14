@@ -1,28 +1,17 @@
 package com.webservice.home;
 
-//import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-//import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
-import java.security.SecureRandom;
-
-//import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
-//import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-//import java.sql.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
 @Path("/login")
 public class Login {
-	
-	private static DataClass.loginStatus loginStatus;
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -34,20 +23,13 @@ public class Login {
 		JsonNode actualObj = mapper.readTree(msg);
 		String email = actualObj.get("email").textValue();
 		String pass = actualObj.get("pass").textValue();
-			
-		
+
       if(Validate.checkUser(email, pass))
       {	  
-    	  SecureRandom random = new SecureRandom();
-    	  byte bytes[] = new byte[255]; //128
-    	  random.nextBytes(bytes);
-    	  String token = bytes.toString();
-    	  
+    	String token = TokenGenerator.nextToken();
       	DataClass.loginStatus logStat = new DataClass.loginStatus();
       	logStat.setStatus("Success", token);
-      	
       	System.out.println(logStat);
-      	
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
       }
       else
@@ -62,12 +44,4 @@ public class Login {
 			return Response.status(500).build();
 		}
   }  
-	/*
-	@Override
-	public int hashCode() {
-	    int hash = 3;
-	    hash = 71 * hash + Objects.hashCode(this.id);
-	    hash = 71 * hash + Objects.hashCode(this.name);
-	    hash = 71 * hash + this.population;
-	    return hash; */
 }

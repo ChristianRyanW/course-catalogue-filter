@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class RegisterValidation
  {
-     public static boolean checkUser(String email,String pass) 
+     public static boolean checkUser(String email)//,String pass) 
      {
       boolean st =false;
       try{
@@ -17,7 +17,7 @@ public class RegisterValidation
          
          Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
          
-         PreparedStatement ps =con.prepareStatement("select * from user where user_email=? and password_hash=?");
+         PreparedStatement ps =con.prepareStatement("select * from user where user_email=?"); //and password_hash=?");
          
          /*
          Connection con=DriverManager.getConnection
@@ -26,7 +26,7 @@ public class RegisterValidation
                  ("select * from users where email=? and pass=?");
          */
          ps.setString(1, email);
-         ps.setString(2, pass);
+         //ps.setString(2, pass);
          ResultSet rs =ps.executeQuery();
          st = rs.next();
 

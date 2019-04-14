@@ -1,20 +1,11 @@
 package com.webservice.home;
 
-//import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-//import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
-import java.security.SecureRandom;
-
-//import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
-//import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-//import java.sql.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -36,8 +27,6 @@ public class Registration {
 		public String geterror() {return error;}
 	}
 	
-	private static RegisterStatus registerStatus;
-	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
@@ -50,22 +39,24 @@ public class Registration {
 		String pass = actualObj.get("pass").textValue();
 			
 		
-    if(!RegisterValidation.checkUser(email, pass))
+    if(!RegisterValidation.checkUser(email))
     {	  
-    	String error = "No Errors";
+    	String message = "No Errors";
     	RegisterStatus regStat = new RegisterStatus();
-    	regStat.setStatus("Success", error);
+    	regStat.setStatus("Success", message);
     	
     	System.out.println(regStat);
     	
-    	RegisterNewUser.newUser(email, pass);
+    	String passHash = PasswordHashing.main(pass);
+    	
+    	RegisterNewUser.newUser(email, passHash);
     	
     	return Response.ok(regStat, MediaType.APPLICATION_JSON).build();
     }
     else
     {
     	RegisterStatus regStat = new RegisterStatus();
-    	regStat.setStatus("Failure", "");
+    	regStat.setStatus("Failure", "Username already exists");
     	return Response.ok(regStat, MediaType.APPLICATION_JSON).build();
     }		
 		}
