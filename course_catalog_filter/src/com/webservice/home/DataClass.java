@@ -45,4 +45,17 @@ public class DataClass {
 		public String getcourse_name() {return course_name;}
 		public String getcourse_desc() {return course_desc;}
 	}
+	
+	public static class userProfile{
+		private String email;
+		private String pass;
+		
+		public void setCred(String email, String pass) {
+			this.email = email;
+			this.pass = pass;
+		}
+		
+		public String getemail() {return email;}
+		public String getpass() {return pass;}
+	}
 }
