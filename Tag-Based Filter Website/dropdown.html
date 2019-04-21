@@ -1,0 +1,169 @@
+<html>
+<body>
+
+
+<div class="search_select">
+    <select id="multiple-checkboxes" multiple="multiple_1" id="interest">
+        <option value="game">Game Opition</option>
+        <option value="mobile">Mobile</option>
+        <option value="sql">SQL</option>
+        <option value="js">Java Script</option>
+        <option value="ai">Artifical Intelligence</option>
+        <option value="html">HTML</option>
+    </select>
+</div>
+
+    
+  
+</body>
+     
+
+<!--
+     
+       <script language="javascript">
+
+function change_myselect(sel) {
+  var obj, dbParam, xmlhttp, myObj, x, txt = "";
+  obj = { table: sel, limit: 20 };
+  dbParam = JSON.stringify(obj);
+    
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myObj = JSON.parse(this.responseText);
+      txt += "<table border='1'>"
+      for (x in myObj) {
+        txt += "<tr><td>" + myObj[x].name + "</td></tr>";
+      }
+      txt += "</table>"    
+      document.getElementById("demo").innerHTML = txt;
+      }
+    };
+  xmlhttp.open("POST", "http://144.167.232.198:8080", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send("x=" + dbParam);
+}
+</script>
+
+                    
+ -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     <p id="classes"></p>
+    
+<script language="javascript">
+    var xmlhttp;
+    function init() {
+       xmlhttp = new XMLHttpRequest();
+    }
+    function search(interest) {
+        var url = "http://144.167.219.20:8080/course_catalog_filter/rest/register"
+        xmlhttp.open('POST',url,true);
+		xmlhttp.setRequestHeader("Content-type", "application/json");
+		xmlhttp.responseType = '';
+	
+        
+		var parameters = {document.getElementById('interest').value};
+        
+		var myJSON = JSON.stringify(parameters);
+		xmlhttp.send(myJSON);
+
+        
+    
+        xmlhttp.onreadystatechange = function(interest) {  
+		
+               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			   
+				var httpResponse = JSON.parse(xmlhttp.response);
+				console.log(httpResponse.status);
+
+                       if (httpResponse.status == "Success") {
+                          console.log("Complete");
+                       }
+                 }
+                 else
+                       console.log("Error: HTTP STATUS: " + xmlhttp.status + " Sent JSON " + myJSON);
+        };
+    }
+    
+    
+     var classes = document.getElementById('classes');
+    classes.innerHTML = 'Tag: <b>' + interest.options[interest.selectedIndex].text
+  </script>
+    
+
+	<button onclick="search(interest)" type="submit" value="submit"  class="btn submit_btn">Search Interests</button>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ <script> 
+    
+    $(document).ready(function () {
+    $.getJSON(url,
+    function (json) {
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].course_subject + "</td>");
+            tr.append("<td>" + json[i].course_number + "</td>");
+            tr.append("<td>" + json[i].course_name + "</td>");
+            tr.append("<td>" + json[i].course_desc + "</td>");
+            $('table').append(tr);
+        }
+    });
+});
+    
+    </script>  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    </html>
