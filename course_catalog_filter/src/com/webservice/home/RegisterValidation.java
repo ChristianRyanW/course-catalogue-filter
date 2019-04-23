@@ -15,7 +15,7 @@ public class RegisterValidation
 
  	 //creating connection with the database 
          
-         Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.25:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+         Connection con=DriverManager.getConnection(Global.DBconnectionString);
          
          PreparedStatement ps =con.prepareStatement("select * from user where user_email=?"); //and password_hash=?");
          

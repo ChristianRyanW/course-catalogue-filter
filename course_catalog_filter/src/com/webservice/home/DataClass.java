@@ -1,7 +1,7 @@
 package com.webservice.home;
 
 public class DataClass {
-
+		
 	public static class loginStatus{
 		private String status;
 		private String token;

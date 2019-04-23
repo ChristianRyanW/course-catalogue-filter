@@ -102,6 +102,7 @@ public class homeClient {
 			} */
 			
 		//TestingSQLFunction.Test();
+		System.out.println(Global.DBconnectionString);
 		} 
 		
 		catch (Exception e){
