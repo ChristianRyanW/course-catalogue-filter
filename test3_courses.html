@@ -1,0 +1,123 @@
+<!--<script>
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1');
+xhr.responseType = 'json';
+xhr.onload = function(e) {
+  if (this.status == 200) {
+    console.log('response', this.response); // JSON response  
+  }
+};
+xhr.send();
+</script>
+-->
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Example - example-static-select-production</title>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+
+
+</head>
+
+<body ng-app="staticSelect">
+  <div ng-controller="ExampleController">
+
+          <form name="myForm">
+
+      <label for="multipleSelect"> Multiselect: </label>
+      <br>
+      <select name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
+        <option value="classA">Class A</option>
+        <option value="classB">Class B</option>
+        <option value="classC">Class C</option>
+        <option value="classD">Class D</option>
+        <option value="classE">Class E</option>
+      </select>
+      <br>
+      <tt>Tags Selected = {{data.multipleSelect}}</tt>
+      <br/>
+    </form>
+      <hr>
+      
+      
+<table id="table">
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Type</th>
+        </tr>
+
+</table>
+      
+    <div ng-repeat="app in apps  | multiplefilter: data.multipleSelect">
+     <td>{{app.name}}</td> <td>{{app.id}}</td> <td>{{app.type}}</td> 
+    </div>
+
+  </div>
+</body>
+    
+          
+      
+ 
+
+
+<script>
+ angular.module('staticSelect', [])
+      .controller('ExampleController', ['$scope', function($scope) {
+        $scope.data = {
+          multipleSelect: ["classA"]
+        };
+        $scope.isoffice = function(apps) {
+
+          return apps.type === $scope.data.multipleSelect[0];
+        };
+        console.log($scope.data.multipleSelect[0]);
+       $scope.apps = [{
+      "id": "007",
+      "type": ["classA","classB","classC"],
+      "name": "Name 1"
+    }, {
+      "id": "578",
+      "type": ["classB","classC","classE"],
+      "name": "Name 2"
+    }, {
+      "id": "976",
+      "type": ["classC"],
+      "name": "Name 3"
+    }, {
+      "id": "123",
+      "type": ["classD","classC"],
+      "name": "Name 4"
+    }, {
+      "id": "479",
+      "type": ["classA","classB","classC","classD","classE"],
+      "name": "Name 5"
+    }
+    ];
+      }]).filter('multiplefilter', function() {
+          return function(arr , filterFrom) {
+            var filteredArray = [];
+
+          angular.forEach(filterFrom, function (value, key) {
+           angular.forEach(arr, function (arrObj, key) {
+             if(arrObj.type.indexOf(value) > -1 && filteredArray.indexOf(arrObj) == -1){
+               filteredArray.push(arrObj);
+             }
+           })
+          });
+          return filteredArray;
+    }
+   
+              
+
+  });
+    
+</script>
