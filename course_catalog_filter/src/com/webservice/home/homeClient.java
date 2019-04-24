@@ -71,7 +71,6 @@ public class homeClient {
 			System.out.println(response.readEntity(String.class));
 			}
 
-		
 		//POST login test
 		Response response2 = webTarget.path("rest").path("login").request("application/json").post(Entity.json(jsonInString));
 		if (response2.getStatus() != 200) {
@@ -102,7 +101,6 @@ public class homeClient {
 			} */
 			
 		//TestingSQLFunction.Test();
-		System.out.println(Global.DBconnectionString);
 		} 
 		
 		catch (Exception e){

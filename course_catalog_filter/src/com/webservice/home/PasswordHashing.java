@@ -24,7 +24,6 @@ public class PasswordHashing {
         PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = skf.generateSecret(spec).getEncoded();
-        //return toHex(salt)+toHex(hash);
         return iterations + ":" + toHex(salt) + ":" + toHex(hash);
     }
      

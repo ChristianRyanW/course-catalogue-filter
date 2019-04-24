@@ -58,4 +58,13 @@ public class DataClass {
 		public String getemail() {return email;}
 		public String getpass() {return pass;}
 	}
+	
+	public static class GenericMessage{
+		public String message;
+		
+		public void setMessage(String message) {
+			this.message = message;
+		}
+		public String getmessage() {return message;}
+	}
 }

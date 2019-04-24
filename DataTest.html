@@ -9,7 +9,7 @@
        xmlhttp = new XMLHttpRequest();
     }
     function login() {
-        var url = "http://localhost:8080/course_catalog_filter/rest/data"
+        var url = "http://localhost:8080/course_catalog_filter/rest/login"
         xmlhttp.open('POST',url,true);
 		xmlhttp.setRequestHeader("Content-type", "application/json");
 		xmlhttp.responseType = '';
@@ -25,9 +25,13 @@
 			   
 				var httpResponse = JSON.parse(xmlhttp.response);
 				console.log("Login Status: " + httpResponse.status);
-				alert(xmlhttp.response);
-				
-                 
+
+                       if (httpResponse.status == "Success") {
+                          console.log("logged in");
+                       }
+                       else {
+                           console.log("Invalid Credentials " + "HTTP STATUS: " + xmlhttp.status + " Sent JSON: " + myJSON);
+                       }
                  }
                  else
                        console.log("Error: HTTP STATUS: " + xmlhttp.status + " Sent JSON " + myJSON);
@@ -40,11 +44,11 @@
    <table>
    <tr>
        <td>Enter Email :  </td>
-       <td><input type="text" id="email" value="" size="20"/> 
+       <td><input type="text" id="email" value="testemail@test.com" size="20"/> 
    </tr>
    <tr>
        <td>Enter password :  </td>
-       <td><input type="password" id="pass" value="" size="20"/>   <input type="button" value="Login" onclick="login()"/> </td>
+       <td><input type="password" id="pass" value="password123" size="20"/>   <input type="button" value="Login" onclick="login()"/> </td>
    </tr>
    </table>
   </body>

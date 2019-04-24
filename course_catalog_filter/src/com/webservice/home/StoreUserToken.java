@@ -12,7 +12,7 @@ public class StoreUserToken {
         Class.forName("com.mysql.cj.jdbc.Driver");
   
         Connection con=DriverManager.getConnection
-                       (Global.DBconnectionString);
+                       ("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
         Statement ps =con.createStatement();
         
         String remSql = ("DELETE FROM token WHERE user_email=" + "'" + email + "'");
