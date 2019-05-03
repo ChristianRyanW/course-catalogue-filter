@@ -20,11 +20,17 @@ SELECT course_subject, course_number
 FROM HASQUALITY
 WHERE HASQUALITY.tag_name = 'AI';
 
--- This is to get all courses that have tags matching 
+-- This is to get all courses that have tags matching those selected by the user
 SELECT course_subject, course_number, count(*)
 FROM HASQUALITY
 WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Assembly Language' OR HASQUALITY.tag_name='Software' OR HASQUALITY.tag_name='Games'
 Group By course_subject, course_number;
+
+SELECT course_subject, course_number, count(*)
+FROM HASQUALITY
+WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Assembly Language' OR HASQUALITY.tag_name='Software' OR HASQUALITY.tag_name='Games'
+Group By course_subject, course_number
+order by count(*) DESC;
 
 select * from tag;
 
