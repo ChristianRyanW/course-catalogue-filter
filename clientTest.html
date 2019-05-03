@@ -24,7 +24,9 @@
                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			   
 				var httpResponse = JSON.parse(xmlhttp.response);
-				console.log("Login Status: " + httpResponse.status);
+				//console.log("Login Status: " + httpResponse.status);
+				var course_sub = httpResponse.indexOf('course_subject');
+				alert(course_sub);
 				alert(xmlhttp.response);
 				
                  

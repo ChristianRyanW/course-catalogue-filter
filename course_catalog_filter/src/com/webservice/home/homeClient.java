@@ -1,6 +1,8 @@
 package com.webservice.home;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -18,6 +20,10 @@ public class homeClient {
 	
 	private static DataClass.userProfile userProfile;
 	private static DataClass.userProfile userProfile2;
+	
+	private static DataClass.Tags tag1;
+	private static DataClass.Tags tag2;
+	private static DataClass.Tags tag3;
 	//private static courseData courseData;
 
 	
@@ -35,30 +41,42 @@ public class homeClient {
 		userProfile.setCred("testemail@test.com", "password123" );
 		
 		userProfile2 = new DataClass.userProfile();
-		userProfile2.setCred("HASHHASH_Test@test.com", "HASHpasspass321HASH");
+		userProfile2.setCred("NewUserMay2@test.com", "Thispasswordhere");
+		
+		tag1 = new DataClass.Tags();
+		tag2 = new DataClass.Tags();
+		tag3 = new DataClass.Tags();
+		
+		tag1.setTag("AI");
+		tag2.setTag("Programming");
+		tag3.setTag("Gaming");
+		
+		List<DataClass.Tags> tags = new ArrayList<>();
+		tags.add(0, tag1);
+		tags.add(1, tag2);
+		tags.add(2, tag3);
 		
 		try {
 		String jsonInString = mapper.writeValueAsString(userProfile2);
-		System.out.println(jsonInString);
+		//System.out.println(jsonInString);
 		
 		String registerJSON = mapper.writeValueAsString(userProfile2);
-		System.out.println(registerJSON);
+		
+		String jsonInStringTag = mapper.writeValueAsString(tags);
+		//System.out.println(registerJSON);
 
 		// response
-		System.out.println(webTarget.path("rest").path("home").request()
-				.accept(MediaType.TEXT_PLAIN).get(Response.class).toString());
+		//System.out.println(webTarget.path("rest").path("home").request().accept(MediaType.TEXT_PLAIN).get(Response.class).toString());
 
 		// text
-		System.out.println(webTarget.path("rest").path("home").request()
-				.accept(MediaType.TEXT_PLAIN).get(String.class));
+		//System.out.println(webTarget.path("rest").path("home").request().accept(MediaType.TEXT_PLAIN).get(String.class));
 
 		// xml
-		System.out.println(webTarget.path("rest").path("home").request()
-				.accept(MediaType.TEXT_XML).get(String.class));
+		//System.out.println(webTarget.path("rest").path("home").request().accept(MediaType.TEXT_XML).get(String.class));
 
 		// html
-		System.out.println(webTarget.path("rest").path("home").request()
-				.accept(MediaType.TEXT_HTML).get(String.class));
+		//System.out.println(webTarget.path("rest").path("home").request().accept(MediaType.TEXT_HTML).get(String.class));
+		
 		
 		
 		//POST test
@@ -70,7 +88,7 @@ public class homeClient {
 			System.out.println("POST SUCCESS TEST");
 			System.out.println(response.readEntity(String.class));
 			}
-
+		
 		//POST login test
 		Response response2 = webTarget.path("rest").path("login").request("application/json").post(Entity.json(jsonInString));
 		if (response2.getStatus() != 200) {
@@ -81,8 +99,8 @@ public class homeClient {
 			System.out.println(response2.readEntity(String.class));
 			}
 		
-		//POST data pull test
-		Response response3 = webTarget.path("rest").path("data").request("application/json").post(Entity.json(jsonInString));
+		//Get data pull test
+		Response response3 = webTarget.path("rest").path("data").request("application/json").get(Response.class);
 		if (response3.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response3.getStatus());
 			}
@@ -99,6 +117,18 @@ public class homeClient {
 			System.out.println("POST SUCCESS Register");
 			System.out.println(response4.readEntity(String.class));
 			} */
+		
+		//POST tag Select Test
+		System.out.println("\n" + jsonInStringTag + "\n");
+		
+		Response response5 = webTarget.path("rest").path("tagselect").request("application/json").post(Entity.json(jsonInStringTag));
+		if (response5.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response5.getStatus());
+			}
+		if (response5.getStatus() == 200) {
+			System.out.println("POST SUCCESS Tag Select");
+			System.out.println(response5.readEntity(String.class));
+			}
 			
 		//TestingSQLFunction.Test();
 		} 

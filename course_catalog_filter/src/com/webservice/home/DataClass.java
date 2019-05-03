@@ -67,4 +67,14 @@ public class DataClass {
 		}
 		public String getmessage() {return message;}
 	}
+	
+	public static class Tags{
+		public String tag;
+		
+		public void setTag(String tag) {
+			this.tag = tag;
+		}
+		public String gettag() {return tag;}
+		
+	}
 }
