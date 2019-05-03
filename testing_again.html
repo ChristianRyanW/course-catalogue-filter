@@ -1,0 +1,101 @@
+
+<!--
+<script>
+    
+   fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log(json))
+    
+-->
+
+  
+<div class="search-bar">
+  <input type="text" id="seeker">
+</div>
+<div id="content"></div>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script>
+    
+var data = [  
+   {  
+      "subject":"MATH",
+      "tag":"Algebra",
+      "courseID":1233,
+      "description":"descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+   },
+   {  
+      "subject":"CPSC",
+       "tag":"JAVA, Artifical Intelligence",
+      "courseID":2434,
+      "description":"dfgdasukfgskdgfskdgfkdsfkdsfs",
+   },
+   {  
+      "subject":"IFSC",
+       "tag":"SQL, Database",
+      "courseID":9876,
+       "description":"sdfhsdkfhkdsjfbjkdsbfdsjkbfjdsbfkjdsbfkjdsbkjfdbskjfbsdkjbfkjdsbfkjdsbfkjdsbjfdsbk",
+   },
+     {  
+      "subject":"IFSC",
+       "tag":"HTML, CSS, Website Design",
+      "courseID":9476,
+       "description":"sdfhsdkfhkdsjfbjkdsbfdsjkbfjdsbfkjdsbfkjdsbkjfdbskjfbsdkjbfkjdsbfkjdsbfkjdsbjfdsbk",
+   }
+]   //change to bottom code for url
+
+//var js;
+//$.getJSON(url, 
+   // function(data) {
+   //     js = data;
+        ///////// or use your data here by calling yourFunction(data);  ???
+   // }
+//);
+
+
+
+output = "";
+$.each(data, function(key, val){
+	output += "<div class='values'>";
+  	output += '<h5 class="value-sub">' + val.subject + '</h5>';
+  	output += '<p class="value-tag">' + val.tag + '</p>'
+    output += '<p class="value-id">' + val.courseID + '</p>'
+    output += '<p class="value-dec">' + val.description
+        + '</p>'
+  output += "</div>";
+});
+
+$('#content').html(output);
+
+ if (!RegExp.escape) {
+   RegExp.escape = function (s) {
+     return s.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+   };
+ }
+ 
+ jQuery(function(){
+  var $rows = $('.values');
+  $('#seeker').keyup(function () {
+    var regex =  new RegExp(RegExp.escape($.trim(this.value).replace(/\s+/g, ' ')), 'i')
+    $rows.hide().filter(function () {
+      var text = $(this).children(".value-tag").text().replace(/\s+/g, ' ');
+      return regex.test(text)
+    }).show();
+  });
+});
+
+</script>
+
+<style>
+.values{
+  background: #FFFFAA;
+}
+
+.search-bar input{
+  width: 100%;
+}
+</style>
+
