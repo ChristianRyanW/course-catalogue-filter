@@ -20,6 +20,14 @@ SELECT course_subject, course_number
 FROM HASQUALITY
 WHERE HASQUALITY.tag_name = 'AI';
 
+-- This is to get all courses that have tags matching 
+SELECT course_subject, course_number, count(*)
+FROM HASQUALITY
+WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Assembly Language' OR HASQUALITY.tag_name='Software' OR HASQUALITY.tag_name='Games'
+Group By course_subject, course_number;
+
+select * from tag;
+
 -- This is to get all of the courses that have tags that the user has saved and their count
 SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, getCourseTagCount(course_subject, course_number, 'rweeks2010@hotmail.com')
 FROM HASQUALITY, INTERESTS
@@ -29,7 +37,21 @@ WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQU
 SELECT tag_name
 FROM TAG;
 
+select * from token;
+
 -- get user password hash using email
 SELECT password_hash
 FROM USER
 WHERE user_email='user_email_variable';
+
+-- Get list of admins
+SELECT USER.user_email
+FROM USER
+WHERE USER.is_admin='1';
+
+select * from USER;
+
+UPDATE USER
+SET is_admin = 1
+WHERE USER.user_email='tag_admin@gmail.com';
+
