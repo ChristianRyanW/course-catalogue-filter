@@ -32,6 +32,12 @@ WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Programming' OR HASQUAL
 Group By course_subject, course_number
 order by count(*) DESC;
 
+SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*)
+FROM HASQUALITY, COURSE
+WHERE (HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Programming' OR HASQUALITY.tag_name='Games') AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number
+Group By HASQUALITY.course_subject, HASQUALITY.course_number
+order by count(*) DESC;
+
 -- This is to get all the tags associated with a course
 SELECT HASQUALITY.tag_name
 FROM HASQUALITY
