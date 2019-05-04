@@ -1,0 +1,16 @@
+FRONT
+
+Dropdown box that pulls from DB for a list of all tags to select
+	Submit the selected tags as a JSON Array to pull course data
+Sent username/Token to get list of bookmarked classes
+
+
+BACK
+
+Make method to get list of usable tags
+
+Finish method to get list of courses from JSON Array of tags
+
+Make method to get list of bookmarked courses
+
+sort courses by most tags matched?
