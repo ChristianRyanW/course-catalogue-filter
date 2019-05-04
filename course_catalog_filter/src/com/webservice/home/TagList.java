@@ -9,44 +9,40 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/data")
-public class ReadData {
-	
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Path("/taglist")
+public class TagList {
 	@GET
-	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response sayConfirm() {
 		try {
-		String course_subject;
-		String course_number;
-		String course_name;
-		String course_desc;
-		
-		List<DataClass.CourseData> courses = new ArrayList<>();
+		String tag;
+
+		List<DataClass.Tags> tags = new ArrayList<>();
 		
         try{
                Class.forName("com.mysql.cj.jdbc.Driver");
             
                Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                
-               PreparedStatement ps =con.prepareStatement("SELECT * FROM course");
+               PreparedStatement ps =con.prepareStatement("SELECT DISTINCT HASQUALITY.tag_name FROM HASQUALITY;");
            
                ResultSet rs =ps.executeQuery();
                
                while (rs.next()) {
-            	course_subject = rs.getString("course_subject");
-            	course_number = rs.getString("course_number");
-            	course_name = rs.getString("course_name");
-               	course_desc = rs.getString("course_desc");
+            	tag = rs.getString("tag_name");
 
-        		DataClass.CourseData CourseData = new DataClass.CourseData();
-            	CourseData.setClass(course_subject, course_number, course_name, course_desc);
-            	courses.add(CourseData);
+        		DataClass.Tags currentTag = new DataClass.Tags();
+            	currentTag.setTag(tag);
+            	tags.add(currentTag);
                }
                rs.close();
                
@@ -54,7 +50,7 @@ public class ReadData {
             {
                 e.printStackTrace();
             }
-     	return Response.ok(courses, MediaType.APPLICATION_JSON).build();
+     	return Response.ok(tags, MediaType.APPLICATION_JSON).build();
 		}
 		catch(Exception e){
 			e.printStackTrace();

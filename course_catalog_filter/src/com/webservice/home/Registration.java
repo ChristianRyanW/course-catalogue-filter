@@ -41,7 +41,7 @@ public class Registration {
 		
     if(!RegisterValidation.checkUser(email))
     {	  
-    	String message = "No Errors";
+    	String message = "Success";
     	RegisterStatus regStat = new RegisterStatus();
     	regStat.setStatus("Success", message);
     	

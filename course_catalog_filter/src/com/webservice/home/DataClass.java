@@ -77,4 +77,16 @@ public class DataClass {
 		public String gettag() {return tag;}
 		
 	}
+	
+	public static class userToken{
+		public String token;
+		public String email;
+		
+		public void setUserToken(String token, String email) {
+			this.token = token;
+			this.email = email;
+		}
+		public String gettoken() {return token;}
+		public String getemail() {return email;}
+	}
 }

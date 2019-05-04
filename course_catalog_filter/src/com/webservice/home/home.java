@@ -8,7 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
+// The home path is to make sure the homeClient is working properly before testing other methods.
 @Path("/home")
 public class home {
 

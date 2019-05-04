@@ -5,6 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,8 +33,10 @@ public class Login {
       	
       	StoreUserToken.sessionToken(token, email);
       	
-      	System.out.println(logStat);
-      	return Response.ok(logStat, MediaType.APPLICATION_JSON).build();
+      	System.out.println(logStat.getstatus());
+      	
+      	NewCookie cookie = new NewCookie(token, email);
+      	return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie).build();
       }
       else
       {

@@ -12,5 +12,6 @@ Make method to get list of usable tags
 Finish method to get list of courses from JSON Array of tags
 
 Make method to get list of bookmarked courses
+Make method to save user tags to DB
 
 sort courses by most tags matched?

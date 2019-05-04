@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/tagselect")
@@ -38,7 +37,7 @@ public class TagSelect {
 
     	 
  		ObjectMapper mapper = new ObjectMapper();
- 		JsonNode actualObj = mapper.readTree(msg);
+ 		//JsonNode actualObj = mapper.readTree(msg);
  		
  		List<DataClass.Tags> tags = mapper.readValue(msg, new TypeReference<List<DataClass.Tags>>() {});
  		
@@ -50,17 +49,23 @@ public class TagSelect {
         Statement ps =con.createStatement();
   
         //SELECT course_subject, course_number FROM HASQUALITY WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name = 'AI';
-
-        String sqlStart = ("SELECT course_subject, course_number, course_name, course_desc FROM HASQUALITY WHERE HASQUALITY.tag_name = ");
-        for(int i = 0; i < tags.size() - 1; i++) {
-        	sqlStart += "'" + tags.get(i) + "'";
+        /*
+        SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*) FROM HASQUALITY, COURSE WHERE (HASQUALITY.tag_name = 
+        'AI' OR HASQUALITY.tag_name='Programming' OR HASQUALITY.tag_name='Games'
+        ) AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number Group By HASQUALITY.course_subject, HASQUALITY.course_number ORDER BY count(*) DESC;
+        */
+        
+        String sqlStart = ("SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*) FROM HASQUALITY, COURSE WHERE (HASQUALITY.tag_name = "); 
+        for(int i = 0; i <= tags.size() - 1; i++) {
+        	if (i > 0) {
+        		sqlStart += " OR HASQUALITY.tag_name=";
+        	}
+        	sqlStart += "'" + tags.get(i).gettag() + "'";
         } 
-        String sqlEnd = ("GROUP By course_subject, course_number");
+        String sqlEnd = (") AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number Group By HASQUALITY.course_subject, HASQUALITY.course_number ORDER BY count(*) DESC;");
         String sql = sqlStart + sqlEnd;
-        
         System.out.println(sql);
-        
-        //String sql = ("SELECT course_subject, course_number, course_name, course_desc FROM HASQUALITY WHERE HASQUALITY.tag_name = '" + tagJSON + "'"); 
+
         ResultSet rs =ps.executeQuery(sql);
         
         while (rs.next()) {
