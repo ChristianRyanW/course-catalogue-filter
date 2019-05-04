@@ -18,7 +18,7 @@ WHERE course_subject='MATH' AND course_number='4400' AND user_email='bob@bob.bob
 -- This is to get all courses with a certain tag. Replace the string "AI" with the desired tag value (probably in variable form)
 SELECT course_subject, course_number
 FROM HASQUALITY
-WHERE HASQUALITY.tag_name = 'AI';
+WHERE HASQUALITY.tag_name = 'Games';
 
 -- This is to get all courses that have tags matching those selected by the user
 SELECT course_subject, course_number, count(*)
@@ -28,9 +28,14 @@ Group By course_subject, course_number;
 
 SELECT course_subject, course_number, count(*)
 FROM HASQUALITY
-WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Assembly Language' OR HASQUALITY.tag_name='Software' OR HASQUALITY.tag_name='Games'
+WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name='Programming' OR HASQUALITY.tag_name='Games'
 Group By course_subject, course_number
 order by count(*) DESC;
+
+-- This is to get all the tags associated with a course
+SELECT HASQUALITY.tag_name
+FROM HASQUALITY
+WHERE HASQUALITY.course_subject='CPSC' AND HASQUALITY.course_number='4377';
 
 select * from tag;
 
@@ -61,3 +66,18 @@ UPDATE USER
 SET is_admin = 1
 WHERE USER.user_email='tag_admin@gmail.com';
 
+-- This is to get a list of all users that have verified their account with a UALR email address
+SELECT USER.user_email, UALREMAIL.ualr_email
+FROM USER, UALREMAIL
+WHERE USER.user_email=UALREMAIL.user_email;
+
+SELECT SUGGESTEDTAGS.course_subject, SUGGESTEDTAGS.course_number, COURSE.course_name, SUGGESTEDTAGS.tag_name
+FROM COURSE, SUGGESTEDTAGS
+WHERE SUGGESTEDTAGS.course_subject=COURSE.course_subject AND SUGGESTEDTAGS.course_number=COURSE.course_number
+ORDER BY COURSE.course_name;
+
+-- This is to select all used tags
+SELECT DISTINCT HASQUALITY.tag_name
+FROM HASQUALITY;
+
+SELECT * FROM SUGGE
