@@ -46,9 +46,9 @@ WHERE HASQUALITY.course_subject='CPSC' AND HASQUALITY.course_number='4377';
 select * from tag;
 
 -- This is to get all of the courses that have tags that the user has saved and their count
-SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, getCourseTagCount(course_subject, course_number, 'rweeks2010@hotmail.com')
-FROM HASQUALITY, INTERESTS
-WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQUALITY.tag_name;
+SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, getCourseTagCount(HASQUALITY.course_subject, HASQUALITY.course_number, 'rweeks2010@hotmail.com')
+FROM HASQUALITY, INTERESTS, COURSE
+WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQUALITY.tag_name AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number;
 
 -- Get list of all tags in database
 SELECT tag_name
@@ -86,4 +86,9 @@ ORDER BY COURSE.course_name;
 SELECT DISTINCT HASQUALITY.tag_name
 FROM HASQUALITY;
 
-SELECT * FROM SUGGE
+INSERT INTO COURSE values ('CPSC', '1105', 'First Year Experience for CPSC/IFSC Majors', '
+A survey of the Computer and Information Science majors with coverage of Interpersonal and Team Communication skills, Time Management & Goal Setting, Techniques for Discovering, Organizing & Presenting Information, Self-Initiated Learning, and Overview of Campus-based resources. Activities include service learning projects, field trips, guest speakers, demonstrations, faculty presentations, and social networks. Two hour lab per week. One credit hours.');
+
+DELETE
+from COURSE
+where course_number='1105' AND course_subject='CPSC';
