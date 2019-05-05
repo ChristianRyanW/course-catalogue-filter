@@ -21,8 +21,6 @@ public class homeClient {
 	private static DataClass.userProfile userProfile;
 	private static DataClass.userProfile userProfile2;
 	
-	private static DataClass.userToken userToken;
-	
 	private static DataClass.Tags tag1;
 	private static DataClass.Tags tag2;
 	private static DataClass.Tags tag3;
@@ -50,7 +48,7 @@ public class homeClient {
 		tag3 = new DataClass.Tags();
 		
 		tag1.setTag("AI");
-		tag2.setTag("Programming");
+		tag2.setTag("Software");
 		tag3.setTag("Games");
 		
 		List<DataClass.Tags> tags = new ArrayList<>();
@@ -101,14 +99,9 @@ public class homeClient {
 			System.out.println("POST SUCCESS Login");
 			System.out.println(response2.readEntity(String.class));
 			} 
+		System.out.println("\n" + response2.getCookies().get("token"));
+		System.out.println(response2.getCookies().get("email") + "\n");
 		
-		String myTok = "PkOqd4dU8DEAAYo6DA8u2euR7sFVaLXAG60N1Vovd8WnbvfODGhg1Ovd30KQ1UgFXnB0r01Q2GdVm4UzGqZzIcvctZVMcIoa3lOePsYYBOb1e9A0TrF6u95wXb7Wg53I";
-		String myEmail = "NewUserMay4@test.com";
-		
-		userToken = new DataClass.userToken();
-		userToken.setUserToken(myTok, myEmail);
-		
-		String jsonInStringToken = mapper.writeValueAsString(userToken);
 		
 		//Get data pull test
 		Response response3 = webTarget.path("rest").path("data").request("application/json").get(Response.class);
@@ -150,14 +143,23 @@ public class homeClient {
 			System.out.println(response6.readEntity(String.class));
 			} 
 		
-		//Bookmark Test
-		Response response7 = webTarget.path("rest").path("loadtagusercourse").request("application/json").post(Entity.json(jsonInStringToken));
+		Response response7 = webTarget.path("rest").path("saveusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringTag));
 		if (response7.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response7.getStatus());
 			}
 		if (response7.getStatus() == 200) {
-			System.out.println("GET SUCCESS USER TAGS");
+			System.out.println("POST SUCCESS SAVE USER TAGS");
 			System.out.println(response7.readEntity(String.class));
+			} 
+		
+		//Bookmark Test
+		Response response8 = webTarget.path("rest").path("loadusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).get(Response.class);//(Entity.json(jsonInStringToken));
+		if (response8.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response8.getStatus());
+			}
+		if (response8.getStatus() == 200) {
+			System.out.println("GET SUCCESS USER TAGS");
+			System.out.println(response8.readEntity(String.class));
 			} 
 			
 		//TestingSQLFunction.Test();
