@@ -92,3 +92,11 @@ A survey of the Computer and Information Science majors with coverage of Interpe
 DELETE
 from COURSE
 where course_number='1105' AND course_subject='CPSC';
+
+-- This is to add a saved tag to the database for a certain user.
+INSERT INTO INTERESTS VALUES (tag_name_var, user_email_var);
+
+-- This is to delete a saved tag from the database for a certain user
+DELETE
+FROM INTERESTS
+WHERE tag_name='tag_name_var' AND user_email='user_email_var';
