@@ -1,9 +1,9 @@
 -- SQL Script file to pull from for backend
 
 -- Replace my email address with a variable containing an email address of a user to retrieve all courses they have saved to their account. Single quotes are required.
-SELECT SAVES.course_subject, SAVES.course_number
-FROM SAVES
-WHERE SAVES.user_email = 'rweeks2010@hotmail.com';
+SELECT SAVES.course_subject, SAVES.course_number, COURSE.course_name, COURSE.course_desc
+FROM SAVES, COURSE
+WHERE SAVES.user_email = 'rweeks2010@hotmail.com' AND SAVES.course_subject=COURSE.course_subject AND SAVES.course_number=COURSE.course_number;
 
 
 -- This is to save a course to a user account. Replace the strings with variables as before
@@ -106,3 +106,4 @@ INSERT INTO INTERESTS VALUES ('tag_name_var', 'user_email_var');
 DELETE
 FROM INTERESTS
 WHERE tag_name='tag_name_var' AND user_email='user_email_var';
+
