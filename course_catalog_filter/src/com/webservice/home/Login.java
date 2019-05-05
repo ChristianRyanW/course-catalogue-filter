@@ -38,8 +38,8 @@ public class Login {
       	//NewCookie cookie = new NewCookie("token", token);
       	//NewCookie cookie2 = new NewCookie("email", email);
       	
-      	NewCookie cookie = CookieGenerator.createDomainCookie("token", token, 1);
-      	NewCookie cookie2 = CookieGenerator.createDomainCookie("email", email, 1);
+      	NewCookie cookie = CookieGenerator.createDomainCookie("token", token, 15);
+      	NewCookie cookie2 = CookieGenerator.createDomainCookie("email", email, 15);
       	System.out.println(cookie);
       	System.out.println(cookie2);
       	return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie).cookie(cookie2).build();

@@ -19,18 +19,13 @@ import javax.ws.rs.core.Response;
 @Path("/loadusertag")
 public class TagLoadUser 
 {
-	
 	@GET
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response sayConfirm(@CookieParam("token") Cookie cookie, @CookieParam("email") Cookie cookie2) {		//(String msg) {
-		try {
-		/*	
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode actualObj = mapper.readTree(msg);
-		String email = actualObj.get("email").textValue();
-		String token = actualObj.get("token").textValue();
-		*/
+	public Response sayConfirm(@CookieParam("token") Cookie cookie, @CookieParam("email") Cookie cookie2) //(String msg)
+	{		
+		try 
+		{
 		String token = cookie.getValue();
 		String email = cookie2.getValue();
 			
@@ -43,13 +38,8 @@ public class TagLoadUser
   		
   		List<DataClass.CourseData> courses = new ArrayList<>();
   		
-          try{
-        	  /*
-        	  SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, getCourseTagCount(course_subject, course_number, 'rweeks2010@hotmail.com')
-        	  FROM HASQUALITY, INTERESTS
-        	  WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQUALITY.tag_name;
-        	  */
-        	  
+          try
+          {
                  Class.forName("com.mysql.cj.jdbc.Driver");
                  Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                  PreparedStatement ps =con.prepareStatement
@@ -57,7 +47,8 @@ public class TagLoadUser
                
                  ResultSet rs =ps.executeQuery();
                  
-                 while (rs.next()) {
+                 while (rs.next()) 
+                 {
                 	 course_subject = rs.getString("course_subject");
                 	 course_number = rs.getString("course_number");
                 	 course_name = rs.getString("course_name");
@@ -69,6 +60,7 @@ public class TagLoadUser
                  }
                  rs.close();
                  con.close();
+                 
               }catch(Exception e)
               {
                   e.printStackTrace();
