@@ -54,7 +54,12 @@ WHERE INTERESTS.user_email='rweeks2010@hotmail.com' AND INTERESTS.tag_name=HASQU
 SELECT tag_name
 FROM TAG;
 
-select * from token;
+-- For use in maintaining a session. When token expires from user machine, the server requests a new token for them and deletes the old one.
+SELECT TOKEN.user_email
+FROM TOKEN
+WHERE TOKEN.token='token_var';
+
+INSERT INTO TOKEN VALUES ('token_var', 'user_email_var');
 
 -- get user password hash using email
 SELECT password_hash
@@ -77,6 +82,7 @@ SELECT USER.user_email, UALREMAIL.ualr_email
 FROM USER, UALREMAIL
 WHERE USER.user_email=UALREMAIL.user_email;
 
+-- For admin use, gets list of tags suggested by users so they can be made official tags
 SELECT SUGGESTEDTAGS.course_subject, SUGGESTEDTAGS.course_number, COURSE.course_name, SUGGESTEDTAGS.tag_name
 FROM COURSE, SUGGESTEDTAGS
 WHERE SUGGESTEDTAGS.course_subject=COURSE.course_subject AND SUGGESTEDTAGS.course_number=COURSE.course_number
@@ -94,7 +100,7 @@ from COURSE
 where course_number='1105' AND course_subject='CPSC';
 
 -- This is to add a saved tag to the database for a certain user.
-INSERT INTO INTERESTS VALUES (tag_name_var, user_email_var);
+INSERT INTO INTERESTS VALUES ('tag_name_var', 'user_email_var');
 
 -- This is to delete a saved tag from the database for a certain user
 DELETE
