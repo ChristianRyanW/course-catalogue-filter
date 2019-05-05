@@ -33,39 +33,25 @@ public class TagSelect {
  		String course_desc;
  		
  		List<DataClass.CourseData> courses = new ArrayList<>();
- 		
-
-    	 
  		ObjectMapper mapper = new ObjectMapper();
- 		//JsonNode actualObj = mapper.readTree(msg);
- 		
  		List<DataClass.Tags> tags = mapper.readValue(msg, new TypeReference<List<DataClass.Tags>>() {});
- 		
- 		//tagJSON.actualObj.get("tag").textValue();
- 				//actualObj.get("tag").textValue();
  		
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
         Statement ps =con.createStatement();
-  
-        //SELECT course_subject, course_number FROM HASQUALITY WHERE HASQUALITY.tag_name = 'AI' OR HASQUALITY.tag_name = 'AI';
-        /*
-        SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*) FROM HASQUALITY, COURSE WHERE (HASQUALITY.tag_name = 
-        'AI' OR HASQUALITY.tag_name='Programming' OR HASQUALITY.tag_name='Games'
-        ) AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number Group By HASQUALITY.course_subject, HASQUALITY.course_number ORDER BY count(*) DESC;
-        */
-        
         String sqlStart = ("SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*) FROM HASQUALITY, COURSE WHERE (HASQUALITY.tag_name = "); 
-        for(int i = 0; i <= tags.size() - 1; i++) {
-        	if (i > 0) {
+        
+        for(int i = 0; i <= tags.size() - 1; i++) 
+        {
+        	if (i > 0) 
+        	{
         		sqlStart += " OR HASQUALITY.tag_name=";
         	}
         	sqlStart += "'" + tags.get(i).gettag() + "'";
         } 
+        
         String sqlEnd = (") AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number Group By HASQUALITY.course_subject, HASQUALITY.course_number ORDER BY count(*) DESC;");
         String sql = sqlStart + sqlEnd;
-        System.out.println(sql);
-
         ResultSet rs =ps.executeQuery(sql);
         
         while (rs.next()) {
@@ -79,7 +65,7 @@ public class TagSelect {
      	courses.add(CourseData);
         }
         rs.close();
-
+        con.close();
    		return Response.ok(courses, MediaType.APPLICATION_JSON).build(); 
      }catch(Exception e)
      {

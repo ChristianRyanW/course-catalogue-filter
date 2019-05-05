@@ -8,8 +8,8 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class PasswordHashing {
-	
+public class PasswordHashing 
+{	
     public static String main(String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);

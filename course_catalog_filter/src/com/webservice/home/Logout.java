@@ -15,14 +15,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/logout")
-public class Logout {
-	
+public class Logout 
+{	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response sessionToken(String msg)
 	{
-     try{
+     try
+     {
  		ObjectMapper mapper = new ObjectMapper();
  		JsonNode actualObj = mapper.readTree(msg);
  		String email = actualObj.get("email").textValue();

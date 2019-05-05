@@ -16,7 +16,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// This is client is used to test the methods and the connection to the DataBase.
+// This client is used to test the methods and the connection to the DataBase.
 public class homeClient {
 	
 	private static DataClass.userProfile userProfile;

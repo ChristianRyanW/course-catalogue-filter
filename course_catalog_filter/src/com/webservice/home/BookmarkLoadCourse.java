@@ -2,8 +2,8 @@ package com.webservice.home;
 
 import javax.ws.rs.Path;
 
-@Path("/saveusertag")
-public class TagSaveUser 
+@Path("/loaduserbookmark")
+public class BookmarkLoadCourse 
 {
 
 }

@@ -6,8 +6,8 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class PasswordHashValidate {
-	
+public class PasswordHashValidate 
+{
 	public static boolean main(String originalPassword, String passHash) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         boolean matched = validatePassword(originalPassword, passHash);

@@ -15,15 +15,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/tagrequest")
-public class TagRequest {
-	
+public class TagRequest 
+{	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	
 	public static Response newTag(String msg)
 	{
-     try{
+     try
+     {
  		ObjectMapper mapper = new ObjectMapper();
  		JsonNode actualObj = mapper.readTree(msg);
  		String course_subject = actualObj.get("course_subject").textValue();
@@ -35,10 +36,12 @@ public class TagRequest {
         Statement ps =con.createStatement();
         String sql = ("INSERT INTO suggestedtag VALUES(" + "'" + course_subject + "'" + "," + "'" + course_number + "'" + "," + "'" + tag + "'" + ")");
         ps.execute(sql);
+        con.close();
         
       	DataClass.GenericMessage message = new DataClass.GenericMessage();
       	message.setMessage("Tag Submitted Successfully");
    		return Response.ok(message, MediaType.APPLICATION_JSON).build(); 
+   		
      }catch(Exception e)
      {
         e.printStackTrace();

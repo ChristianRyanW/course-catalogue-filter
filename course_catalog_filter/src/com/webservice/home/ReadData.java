@@ -15,13 +15,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/data")
-public class ReadData {
-	
+public class ReadData 
+{	
 	@GET
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response sayConfirm() {
-		try {
+	public Response sayConfirm() 
+	{
+		try 
+		{
 		String course_subject;
 		String course_number;
 		String course_name;
@@ -29,16 +31,13 @@ public class ReadData {
 		
 		List<DataClass.CourseData> courses = new ArrayList<>();
 		
-        try{
                Class.forName("com.mysql.cj.jdbc.Driver");
-            
                Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
-               
                PreparedStatement ps =con.prepareStatement("SELECT * FROM course");
-           
                ResultSet rs =ps.executeQuery();
                
-               while (rs.next()) {
+               while (rs.next()) 
+               {
             	course_subject = rs.getString("course_subject");
             	course_number = rs.getString("course_number");
             	course_name = rs.getString("course_name");
@@ -48,15 +47,14 @@ public class ReadData {
             	CourseData.setClass(course_subject, course_number, course_name, course_desc);
             	courses.add(CourseData);
                }
-               rs.close();
                
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+               rs.close();
+               con.close();
+               
      	return Response.ok(courses, MediaType.APPLICATION_JSON).build();
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 			return Response.status(500).build();
 		}
