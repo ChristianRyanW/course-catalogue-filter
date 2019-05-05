@@ -25,7 +25,7 @@ public class Login {
 		String email = actualObj.get("email").textValue();
 		String pass = actualObj.get("pass").textValue();
 
-      if(Validate.checkUser(email, pass))
+      if(ValidateLogin.checkUser(email, pass))
       {	  
     	String token = TokenGenerator.nextToken();
       	DataClass.loginStatus logStat = new DataClass.loginStatus();
@@ -35,8 +35,14 @@ public class Login {
       	
       	System.out.println(logStat.getstatus());
       	
-      	NewCookie cookie = new NewCookie(token, email);
-      	return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie).build();
+      	//NewCookie cookie = new NewCookie("token", token);
+      	//NewCookie cookie2 = new NewCookie("email", email);
+      	
+      	NewCookie cookie = CookieGenerator.createDomainCookie("token", token, 1);
+      	NewCookie cookie2 = CookieGenerator.createDomainCookie("email", email, 1);
+      	System.out.println(cookie);
+      	System.out.println(cookie2);
+      	return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie).cookie(cookie2).build();
       }
       else
       {

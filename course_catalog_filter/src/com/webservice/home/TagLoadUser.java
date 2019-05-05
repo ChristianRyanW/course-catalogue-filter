@@ -8,29 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Path("/loadtaguserclass")
+@Path("/loadtagusercourse")
 public class TagLoadUser {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response sayConfirm(String msg) {
+	public Response sayConfirm(@CookieParam("token") Cookie cookie, @CookieParam("email") Cookie cookie2) {		//(String msg) {
 		try {
-			
+		/*	
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode actualObj = mapper.readTree(msg);
 		String email = actualObj.get("email").textValue();
 		String token = actualObj.get("token").textValue();
-
+		*/
+		String token = cookie.getValue();
+		String email = cookie2.getValue();
+			
       if(ValidateToken.checkToken(token, email))
       {	  
   		String course_subject;
@@ -65,7 +70,7 @@ public class TagLoadUser {
               	courses.add(CourseData);
                  }
                  rs.close();
-                 
+                 con.close();
               }catch(Exception e)
               {
                   e.printStackTrace();

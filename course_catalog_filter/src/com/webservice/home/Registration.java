@@ -39,7 +39,7 @@ public class Registration {
 		String pass = actualObj.get("pass").textValue();
 			
 		
-    if(!RegisterValidation.checkUser(email))
+    if(!ValidateRegister.checkUser(email))
     {	  
     	String message = "Success";
     	RegisterStatus regStat = new RegisterStatus();

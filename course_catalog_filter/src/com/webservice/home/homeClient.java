@@ -93,7 +93,7 @@ public class homeClient {
 			}
 		
 		//POST login test
-		/*
+		
 		Response response2 = webTarget.path("rest").path("login").request("application/json").post(Entity.json(jsonInString));
 		if (response2.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response2.getStatus());
@@ -101,7 +101,7 @@ public class homeClient {
 		if (response2.getStatus() == 200) {
 			System.out.println("POST SUCCESS Login");
 			System.out.println(response2.readEntity(String.class));
-			} */
+			} 
 		
 		String myTok = "PkOqd4dU8DEAAYo6DA8u2euR7sFVaLXAG60N1Vovd8WnbvfODGhg1Ovd30KQ1UgFXnB0r01Q2GdVm4UzGqZzIcvctZVMcIoa3lOePsYYBOb1e9A0TrF6u95wXb7Wg53I";
 		String myEmail = "NewUserMay4@test.com";
@@ -152,7 +152,7 @@ public class homeClient {
 			} 
 		
 		//Bookmark Test
-		Response response7 = webTarget.path("rest").path("mybookmarks").request("application/json").post(Entity.json(jsonInStringToken));
+		Response response7 = webTarget.path("rest").path("loadtagusercourse").request("application/json").post(Entity.json(jsonInStringToken));
 		if (response7.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response7.getStatus());
 			}

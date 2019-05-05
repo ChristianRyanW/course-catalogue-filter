@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 @Path("/mybookmarks")
 public class BookmarkedCourses {
 	
