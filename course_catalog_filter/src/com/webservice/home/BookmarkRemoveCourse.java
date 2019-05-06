@@ -2,8 +2,8 @@ package com.webservice.home;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/removeuserbookmark")
@@ -29,25 +29,27 @@ public class BookmarkRemoveCourse {
 		String token = cookie.getValue();
 		String email = cookie2.getValue();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode actualObj = mapper.readTree(msg);
-		String course_subject = actualObj.get("course_subject").textValue();
-		String course_number = actualObj.get("course_number").textValue();
+ 		ObjectMapper mapper = new ObjectMapper();
+ 		List<DataClass.userBookmark> bookmarks = mapper.readValue(msg, new TypeReference<List<DataClass.userBookmark>>() {});
 			
       if(ValidateToken.checkToken(token, email))
       {	  		
           try
           {
-                 Class.forName("com.mysql.cj.jdbc.Driver");
-                 Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
-                 PreparedStatement ps =con.prepareStatement
-                		 ("DELETE FROM SAVES WHERE course_subject='" + course_subject + "' AND course_number='" + course_number + "' AND user_email='" + email + "'");
-               
-                 ResultSet rs =ps.executeQuery();
-                 
-                 rs.close();
-                 con.close();
-                 
+        	  
+              Class.forName("com.mysql.cj.jdbc.Driver");
+              Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD"); 
+              Statement ps =con.createStatement();
+              String sql = "";
+              
+              for(int i = 0; i <= bookmarks.size() - 1; i++) {
+             	 sql = ("DELETE FROM SAVES WHERE course_subject='" + bookmarks.get(i).getcourse_subject() + "' AND course_number='" + bookmarks.get(i).getcourse_number() + "' AND user_email='" + email + "'");
+             	 System.out.println(sql);
+             	 ps.execute(sql);
+              }
+              ps.close();
+              con.close();
+          
               }catch(Exception e)
               {
                   e.printStackTrace();

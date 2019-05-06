@@ -32,17 +32,14 @@ public class Login {
       	logStat.setStatus("Success", token);
       	
       	StoreUserToken.sessionToken(token, email);
+   	   	
+      	NewCookie cookie = CookieGenerator.createDomainCookie("token", token, 60);
+      	NewCookie cookie2 = CookieGenerator.createDomainCookie("email", email, 60);
       	
-      	System.out.println(logStat.getstatus());
-      	
-      	//NewCookie cookie = new NewCookie("token", token);
-      	//NewCookie cookie2 = new NewCookie("email", email);
-      	
-      	NewCookie cookie = CookieGenerator.createDomainCookie("token", token, 15);
-      	NewCookie cookie2 = CookieGenerator.createDomainCookie("email", email, 15);
-      	System.out.println(cookie);
-      	System.out.println(cookie2);
-      	return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie).cookie(cookie2).build();
+      	Response.ResponseBuilder responsebuild = Response.ok(logStat, MediaType.APPLICATION_JSON);
+      	Response response = responsebuild.cookie(cookie, cookie2).build();
+      	return response;
+      	//return Response.ok(logStat, MediaType.APPLICATION_JSON).cookie(cookie, cookie2).build();
       }
       else
       {

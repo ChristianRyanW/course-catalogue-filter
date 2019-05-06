@@ -89,4 +89,17 @@ public class DataClass {
 		public String gettoken() {return token;}
 		public String getemail() {return email;}
 	}
+	
+	public static class userBookmark{
+		public String course_subject;
+		public String course_number;
+		
+		public void setUserBookmark(String course_subject, String course_number) {
+			this.course_subject = course_subject;
+			this.course_number = course_number;
+		}
+		public String getcourse_subject(){return course_subject;}
+		public String getcourse_number(){return course_number;}
+		
+	}
 }

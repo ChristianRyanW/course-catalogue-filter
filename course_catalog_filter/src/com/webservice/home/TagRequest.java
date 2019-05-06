@@ -34,7 +34,7 @@ public class TagRequest
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
         Statement ps =con.createStatement();
-        String sql = ("INSERT INTO suggestedtag VALUES(" + "'" + course_subject + "'" + "," + "'" + course_number + "'" + "," + "'" + tag + "'" + ")");
+        String sql = ("INSERT INTO suggestedtags VALUES(" + "'" + course_subject + "'" + "," + "'" + course_number + "'" + "," + "'" + tag + "'" + ")");
         ps.execute(sql);
         con.close();
         
@@ -49,6 +49,5 @@ public class TagRequest
        	errorMessage.setMessage("Tag was not submitted successfully");
         return Response.ok(errorMessage, MediaType.APPLICATION_JSON).build();  
      }
-            
 	}
 }

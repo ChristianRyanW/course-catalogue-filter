@@ -21,11 +21,12 @@ public class homeClient {
 	private static DataClass.userProfile userProfile;
 	private static DataClass.userProfile userProfile2;
 	
-	private static DataClass.userToken userToken;
-	
 	private static DataClass.Tags tag1;
 	private static DataClass.Tags tag2;
 	private static DataClass.Tags tag3;
+	
+	private static DataClass.userBookmark book1;
+	private static DataClass.userBookmark book2;
 	//private static courseData courseData;
 
 	
@@ -50,13 +51,23 @@ public class homeClient {
 		tag3 = new DataClass.Tags();
 		
 		tag1.setTag("AI");
-		tag2.setTag("Programming");
+		tag2.setTag("Software");
 		tag3.setTag("Games");
 		
 		List<DataClass.Tags> tags = new ArrayList<>();
 		tags.add(0, tag1);
 		tags.add(1, tag2);
 		tags.add(2, tag3);
+		
+		book1 = new DataClass.userBookmark();
+		book2 = new DataClass.userBookmark();
+		
+		book1.setUserBookmark("CPSC", "4377");
+		book2.setUserBookmark("IFSC", "1105");
+		
+		List<DataClass.userBookmark> bookmarks = new ArrayList<>();
+		bookmarks.add(0, book1);
+		bookmarks.add(1, book2);
 		
 		try {
 		String jsonInString = mapper.writeValueAsString(userProfile2);
@@ -65,6 +76,8 @@ public class homeClient {
 		String registerJSON = mapper.writeValueAsString(userProfile2);
 		
 		String jsonInStringTag = mapper.writeValueAsString(tags);
+		
+		String jsonInStringBookmark = mapper.writeValueAsString(bookmarks);
 		//System.out.println(registerJSON);
 
 		// response
@@ -101,14 +114,9 @@ public class homeClient {
 			System.out.println("POST SUCCESS Login");
 			System.out.println(response2.readEntity(String.class));
 			} 
+		System.out.println("\n" + response2.getCookies().get("token"));
+		System.out.println(response2.getCookies().get("email") + "\n");
 		
-		String myTok = "PkOqd4dU8DEAAYo6DA8u2euR7sFVaLXAG60N1Vovd8WnbvfODGhg1Ovd30KQ1UgFXnB0r01Q2GdVm4UzGqZzIcvctZVMcIoa3lOePsYYBOb1e9A0TrF6u95wXb7Wg53I";
-		String myEmail = "NewUserMay4@test.com";
-		
-		userToken = new DataClass.userToken();
-		userToken.setUserToken(myTok, myEmail);
-		
-		String jsonInStringToken = mapper.writeValueAsString(userToken);
 		
 		//Get data pull test
 		Response response3 = webTarget.path("rest").path("data").request("application/json").get(Response.class);
@@ -150,14 +158,64 @@ public class homeClient {
 			System.out.println(response6.readEntity(String.class));
 			} 
 		
-		//Bookmark Test
-		Response response7 = webTarget.path("rest").path("loadtagusercourse").request("application/json").post(Entity.json(jsonInStringToken));
+		//Save user tags
+		Response response7 = webTarget.path("rest").path("saveusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringTag));
 		if (response7.getStatus() != 200) {
 			throw new RuntimeException("Failure HTTP Status : " + response7.getStatus());
 			}
 		if (response7.getStatus() == 200) {
-			System.out.println("GET SUCCESS USER TAGS");
+			System.out.println("POST SUCCESS SAVE USER TAGS");
 			System.out.println(response7.readEntity(String.class));
+			} 
+		
+		//Load Courses by users saved tags Test
+		Response response8 = webTarget.path("rest").path("loadusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).get(Response.class);
+		if (response8.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response8.getStatus());
+			}
+		if (response8.getStatus() == 200) {
+			System.out.println("GET SUCCESS LOAD USER TAGS");
+			System.out.println(response8.readEntity(String.class));
+			} 
+		
+		//remove user tags
+		Response response9 = webTarget.path("rest").path("removeusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringTag));
+		if (response9.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response9.getStatus());
+			}
+		if (response9.getStatus() == 200) {
+			System.out.println("POST SUCCESS REMOVE USER TAGS");
+			System.out.println(response9.readEntity(String.class));
+			} 
+		
+		//save user bookmarks
+		Response response10 = webTarget.path("rest").path("saveuserbookmark").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringBookmark));
+		if (response10.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response10.getStatus());
+			}
+		if (response10.getStatus() == 200) {
+			System.out.println("POST SUCCESS SAVE USER BOOKMARKS");
+			System.out.println(response10.readEntity(String.class));
+			} 
+		
+		//load courses by user bookmark
+		Response response11 = webTarget.path("rest").path("loaduserbookmark").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).get(Response.class);
+		if (response11.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response11.getStatus());
+			}
+		if (response11.getStatus() == 200) {
+			System.out.println("GET SUCCESS LOAD USER BOOKMARKS");
+			System.out.println(response11.readEntity(String.class));
+			} 
+		
+		//remove user bookmarks
+		Response response12 = webTarget.path("rest").path("removeuserbookmark").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringBookmark));
+		if (response12.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response12.getStatus());
+			}
+		if (response12.getStatus() == 200) {
+			System.out.println("POST SUCCESS REMOVE USER BOOKMARKS");
+			System.out.println(response12.readEntity(String.class));
 			} 
 			
 		//TestingSQLFunction.Test();
