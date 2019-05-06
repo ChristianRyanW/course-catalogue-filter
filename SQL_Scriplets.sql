@@ -123,5 +123,9 @@ FROM INTERESTS
 WHERE tag_name='tag_name_var' AND user_email='user_email_var';
 
 select count(*)
-FROM course
+FROM course;
 
+SELECT COURSE.course_subject, COURSE.course_number, COURSE.course_name, COURSE.course_desc, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name SEPARATOR ',') tag_name
+FROM COURSE
+JOIN HASQUALITY ON (HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number)
+GROUP BY COURSE.course_number;
