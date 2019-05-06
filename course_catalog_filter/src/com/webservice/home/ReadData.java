@@ -28,12 +28,18 @@ public class ReadData
 		String course_number;
 		String course_name;
 		String course_desc;
+		String tag;
 		
-		List<DataClass.CourseData> courses = new ArrayList<>();
+		List<DataClass.CourseDataTag> courses = new ArrayList<>();
 		
                Class.forName("com.mysql.cj.jdbc.Driver");
-               Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
-               PreparedStatement ps =con.prepareStatement("SELECT * FROM course");
+               Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+               PreparedStatement ps =con.prepareStatement(
+            		   "SELECT COURSE.course_subject, COURSE.course_number, COURSE.course_name, COURSE.course_desc, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name SEPARATOR ', ') tag_name\r\n" + 
+               			"FROM COURSE\r\n" + 
+               			"JOIN HASQUALITY ON (HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number)\r\n" + 
+               			"GROUP BY COURSE.course_number;");
+               
                ResultSet rs =ps.executeQuery();
                
                while (rs.next()) 
@@ -42,10 +48,11 @@ public class ReadData
             	course_number = rs.getString("course_number");
             	course_name = rs.getString("course_name");
                	course_desc = rs.getString("course_desc");
-
-        		DataClass.CourseData CourseData = new DataClass.CourseData();
-            	CourseData.setClass(course_subject, course_number, course_name, course_desc);
-            	courses.add(CourseData);
+               	tag = rs.getString("tag_name");
+               	
+        		DataClass.CourseDataTag CourseDataTag = new DataClass.CourseDataTag();
+            	CourseDataTag.setClass(course_subject, course_number, course_name, course_desc, tag);
+            	courses.add(CourseDataTag);
                }
                
                rs.close();

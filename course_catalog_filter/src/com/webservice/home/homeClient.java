@@ -27,8 +27,6 @@ public class homeClient {
 	
 	private static DataClass.userBookmark book1;
 	private static DataClass.userBookmark book2;
-	//private static courseData courseData;
-
 	
 	private static final String webServiceURI = "http://localhost:8080/course_catalog_filter";
 
@@ -78,6 +76,8 @@ public class homeClient {
 		String jsonInStringTag = mapper.writeValueAsString(tags);
 		
 		String jsonInStringBookmark = mapper.writeValueAsString(bookmarks);
+		
+		System.out.println(jsonInStringBookmark);
 		//System.out.println(registerJSON);
 
 		// response

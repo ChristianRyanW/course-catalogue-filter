@@ -1,5 +1,9 @@
 package com.webservice.home;
 
+import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
 public class DataClass {
 		
 	public static class loginStatus{
@@ -44,6 +48,27 @@ public class DataClass {
 		public String getcourse_number() {return course_number;}
 		public String getcourse_name() {return course_name;}
 		public String getcourse_desc() {return course_desc;}
+	}
+	
+	public static class CourseDataTag{
+		private String course_subject;
+		private String course_number;
+		private String course_name;
+		private String course_desc;
+ 		private String tag;
+		
+		public void setClass(String course_subject, String course_number, String course_name, String course_desc, String tag) {
+			this.course_subject = course_subject;
+			this.course_number = course_number;
+			this.course_name = course_name;
+			this.course_desc = course_desc;
+			this.tag = tag;
+		}
+		public String getcourse_subject() {return course_subject;}
+		public String getcourse_number() {return course_number;}
+		public String getcourse_name() {return course_name;}
+		public String getcourse_desc() {return course_desc;}
+		public String gettag() {return tag;}
 	}
 	
 	public static class userProfile{

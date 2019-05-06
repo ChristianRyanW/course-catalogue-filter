@@ -41,7 +41,7 @@ public class TagLoadUser
           try
           {
                  Class.forName("com.mysql.cj.jdbc.Driver");
-                 Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+                 Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                  PreparedStatement ps =con.prepareStatement
                 		 ("SELECT DISTINCT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, getCourseTagCount(HASQUALITY.course_subject, HASQUALITY.course_number, '" + email +"') FROM HASQUALITY, INTERESTS, COURSE WHERE INTERESTS.user_email='" + email +"' AND INTERESTS.tag_name=HASQUALITY.tag_name AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number;");
                

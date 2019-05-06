@@ -37,7 +37,7 @@ public class TagSelect {
  		List<DataClass.Tags> tags = mapper.readValue(msg, new TypeReference<List<DataClass.Tags>>() {});
  		
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+        Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
         Statement ps =con.createStatement();
         String sqlStart = ("SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name, COURSE.course_desc, count(*) FROM HASQUALITY, COURSE WHERE (HASQUALITY.tag_name = "); 
         

@@ -38,13 +38,12 @@ public class BookmarkRemoveCourse {
           {
         	  
               Class.forName("com.mysql.cj.jdbc.Driver");
-              Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD"); 
+              Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD"); 
               Statement ps =con.createStatement();
               String sql = "";
               
               for(int i = 0; i <= bookmarks.size() - 1; i++) {
              	 sql = ("DELETE FROM SAVES WHERE course_subject='" + bookmarks.get(i).getcourse_subject() + "' AND course_number='" + bookmarks.get(i).getcourse_number() + "' AND user_email='" + email + "'");
-             	 System.out.println(sql);
              	 ps.execute(sql);
               }
               ps.close();

@@ -41,7 +41,7 @@ public class BookmarkLoadCourse
           try
           {  
                  Class.forName("com.mysql.cj.jdbc.Driver");
-                 Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
+                 Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD");
                  PreparedStatement ps =con.prepareStatement
                 		 ("SELECT SAVES.course_subject, SAVES.course_number, COURSE.course_name, COURSE.course_desc FROM SAVES, COURSE WHERE SAVES.user_email = '" + email + "' AND SAVES.course_subject=COURSE.course_subject AND SAVES.course_number=COURSE.course_number;");
                

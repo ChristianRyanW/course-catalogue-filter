@@ -27,24 +27,29 @@ public class BookmarkSaveCourse
 	{		
 		try 
 		{
+	 		System.out.println(msg);
+	 		System.out.println(cookie);
+	 		System.out.println(cookie2);
+	 		
 		String token = cookie.getValue();
 		String email = cookie2.getValue();
 		
  		ObjectMapper mapper = new ObjectMapper();
  		List<DataClass.userBookmark> bookmarks = mapper.readValue(msg, new TypeReference<List<DataClass.userBookmark>>() {});
-			
+		
+
+ 		
       if(ValidateToken.checkToken(token, email))
       {	  		
           try
           {
               Class.forName("com.mysql.cj.jdbc.Driver");
-              Connection con=DriverManager.getConnection("jdbc:mysql://144.167.232.198:3306/tagit","notroot","K-YQ@5^Bq2d5~drD"); 
+              Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tagit","notroot","K-YQ@5^Bq2d5~drD"); 
               Statement ps =con.createStatement();
               String sql = "";
               
               for(int i = 0; i <= bookmarks.size() - 1; i++) {
              	 sql = ("INSERT INTO SAVES VALUES('" + bookmarks.get(i).getcourse_subject() + "','" + bookmarks.get(i).getcourse_number() + "','" + email + "')");
-             	 System.out.println(sql);
              	 ps.execute(sql);
               }
               ps.close();
