@@ -49,6 +49,5 @@ public class TagRequest
        	errorMessage.setMessage("Tag was not submitted successfully");
         return Response.ok(errorMessage, MediaType.APPLICATION_JSON).build();  
      }
-            
 	}
 }
