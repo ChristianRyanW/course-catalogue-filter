@@ -5,10 +5,11 @@ SELECT SAVES.course_subject, SAVES.course_number, COURSE.course_name, COURSE.cou
 FROM SAVES, COURSE
 WHERE SAVES.user_email = 'rweeks2010@hotmail.com' AND SAVES.course_subject=COURSE.course_subject AND SAVES.course_number=COURSE.course_number;
 
+select course_desc
+FROM COURSE;
 
 -- This is to save a course to a user account. Replace the strings with variables as before
 INSERT INTO SAVES VALUES('MATH', '4400', 'bob@bob.bob');
-
 
 -- This is to delete a course from the user's saved course list. Replace the strings with the variables.
 DELETE
@@ -16,9 +17,9 @@ FROM SAVES
 WHERE course_subject='MATH' AND course_number='4400' AND user_email='bob@bob.bob';
 
 -- This is to get all courses with a certain tag. Replace the string "AI" with the desired tag value (probably in variable form)
-SELECT course_subject, course_number
-FROM HASQUALITY
-WHERE HASQUALITY.tag_name = 'Games';
+SELECT HASQUALITY.course_subject, HASQUALITY.course_number, COURSE.course_name
+FROM HASQUALITY, COURSE
+WHERE HASQUALITY.tag_name = 'AI' AND HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number;
 
 -- This is to get all courses that have tags matching those selected by the user
 SELECT course_subject, course_number, count(*)
@@ -71,11 +72,11 @@ SELECT USER.user_email
 FROM USER
 WHERE USER.is_admin='1';
 
-select * from USER;
+
 
 UPDATE USER
 SET is_admin = 1
-WHERE USER.user_email='tag_admin@gmail.com';
+WHERE USER.user_email='rweeks2010@hotmail.com';
 
 -- This is to get a list of all users that have verified their account with a UALR email address
 SELECT USER.user_email, UALREMAIL.ualr_email
@@ -88,16 +89,30 @@ FROM COURSE, SUGGESTEDTAGS
 WHERE SUGGESTEDTAGS.course_subject=COURSE.course_subject AND SUGGESTEDTAGS.course_number=COURSE.course_number
 ORDER BY COURSE.course_name;
 
+DELIMITER $$
+CREATE FUNCTION getCourseTagCount(course_sub varchar(4), course_num varchar(4), user_mail varchar(255)) 
+RETURNS bigint(20)
+    READS SQL DATA
+BEGIN
+	DECLARE courseTagCount BIGINT;
+    
+    SELECT DISTINCT COUNT(*)
+    INTO courseTagCount
+    FROM HASQUALITY
+    WHERE HASQUALITY.course_subject=course_sub 
+		AND HASQUALITY.course_number=course_num 
+		AND HASQUALITY.tag_name IN (SELECT INTERESTS.tag_name
+								 FROM	INTERESTS
+                                 WHERE 	INTERESTS.user_email=user_mail);
+    
+    RETURN (courseTagCount);
+END$$
+DELIMITER ;
+
+
 -- This is to select all used tags
-SELECT DISTINCT HASQUALITY.tag_name
+SELECT HASQUALITY.tag_name
 FROM HASQUALITY;
-
-INSERT INTO COURSE values ('CPSC', '1105', 'First Year Experience for CPSC/IFSC Majors', '
-A survey of the Computer and Information Science majors with coverage of Interpersonal and Team Communication skills, Time Management & Goal Setting, Techniques for Discovering, Organizing & Presenting Information, Self-Initiated Learning, and Overview of Campus-based resources. Activities include service learning projects, field trips, guest speakers, demonstrations, faculty presentations, and social networks. Two hour lab per week. One credit hours.');
-
-DELETE
-from COURSE
-where course_number='1105' AND course_subject='CPSC';
 
 -- This is to add a saved tag to the database for a certain user.
 INSERT INTO INTERESTS VALUES ('tag_name_var', 'user_email_var');
@@ -106,4 +121,7 @@ INSERT INTO INTERESTS VALUES ('tag_name_var', 'user_email_var');
 DELETE
 FROM INTERESTS
 WHERE tag_name='tag_name_var' AND user_email='user_email_var';
+
+select count(*)
+FROM course
 
