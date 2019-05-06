@@ -2,14 +2,11 @@ package com.webservice.home;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/saveusertag")
@@ -33,11 +29,6 @@ public class TagSaveUser
 		{
 		String token = cookie.getValue();
 		String email = cookie2.getValue();
-		/*
- 		ObjectMapper mapper = new ObjectMapper();
- 		JsonNode actualObj = mapper.readTree(msg);
- 		String tag = actualObj.get("tag").textValue();
-		*/
  		ObjectMapper mapper = new ObjectMapper();
  		List<DataClass.Tags> tags = mapper.readValue(msg, new TypeReference<List<DataClass.Tags>>() {});
  		
