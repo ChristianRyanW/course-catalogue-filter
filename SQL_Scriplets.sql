@@ -125,7 +125,50 @@ WHERE tag_name='tag_name_var' AND user_email='user_email_var';
 select count(*)
 FROM course;
 
-SELECT COURSE.course_subject, COURSE.course_number, COURSE.course_name, COURSE.course_desc, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name SEPARATOR ',') tag_name
+SELECT COURSE.course_subject, COURSE.course_number, COURSE.course_name, COURSE.course_desc, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name SEPARATOR ', ') tag_name
 FROM COURSE
 JOIN HASQUALITY ON (HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number)
 GROUP BY COURSE.course_number;
+
+SELECT COURSE.course_subject, COURSE.course_number, COURSE.course_name, COURSE.course_desc, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name SEPARATOR ', ') tag_name
+FROM COURSE
+JOIN HASQUALITY ON (HASQUALITY.course_subject=COURSE.course_subject AND HASQUALITY.course_number=COURSE.course_number)
+GROUP BY COURSE.course_number;
+
+Select distinct course.course_subject, course.course_number, course.course_name
+from course, hasquality
+where course.course_subject!=HASQUALITY.course_subject AND course.course_number!=HASQUALITY.course_number;
+
+	INSERT INTO hasquality values ('IFSC', '1105', 'First Year');
+	INSERT INTO hasquality values ('IFSC', '1110', 'Ethics');
+	INSERT INTO hasquality values ('IFSC', '1110', 'Intro');
+	INSERT INTO hasquality values ('IFSC', '1202', 'Object-Oriented');
+	INSERT INTO hasquality values ('IFSC', '1202', 'Programming');
+	INSERT INTO hasquality values ('IFSC', '1310', 'Web Design');
+	INSERT INTO hasquality values ('IFSC', '2200', 'ETHICS');
+	INSERT INTO hasquality values ('IFSC', '2300', 'Object-Oriented');
+	INSERT INTO hasquality values ('IFSC', '2305', 'Computer Systems');
+	INSERT INTO hasquality values ('IFSC', '2315', 'Computer Systems');
+	INSERT INTO hasquality values ('IFSC', '2340', 'Software');
+	INSERT INTO hasquality values ('IFSC', '3300', 'Networks');
+	INSERT INTO hasquality values ('IFSC', '3315', 'Networks');
+	INSERT INTO hasquality values ('IFSC', '3320', 'Database');
+	INSERT INTO hasquality values ('IFSC', '3330', 'Database');
+	INSERT INTO hasquality values ('IFSC', '3342', 'Mobile');
+	INSERT INTO hasquality values ('IFSC', '3360', 'Computer Systems');
+	INSERT INTO hasquality values ('IFSC', '3391', 'Software');
+	INSERT INTO hasquality values ('IFSC', '3392', 'Software');
+-- INSERT INTO hasquality values ('IFSC', '4301', 'Theory');
+	INSERT INTO hasquality values ('IFSC', '4325', 'Data Mining');
+	INSERT INTO hasquality values ('IFSC', '4330', 'Database');
+	INSERT INTO hasquality values ('IFSC', '4330', 'Security');
+	INSERT INTO hasquality values ('IFSC', '4339', 'Networks');
+	INSERT INTO hasquality values ('IFSC', '4339', 'Security');
+-- INSERT INTO hasquality values ('IFSC', '4345', 'Data Science');
+	INSERT INTO hasquality values ('IFSC', '4350', 'E-Commerce');
+	INSERT INTO hasquality values ('IFSC', '4360', 'Software');
+	INSERT INTO hasquality values ('IFSC', '4376', 'Security');
+	INSERT INTO hasquality values ('IFSC', '4391', 'Software');
+	INSERT INTO hasquality values ('IFSC', '4392', 'Software');
+	INSERT INTO hasquality values ('IFSC', '4396', 'Capstone');
+	INSERT INTO hasquality values ('IFSC', '4398', 'Capstone');
