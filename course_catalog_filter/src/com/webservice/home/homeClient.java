@@ -158,8 +158,17 @@ public class homeClient {
 			throw new RuntimeException("Failure HTTP Status : " + response8.getStatus());
 			}
 		if (response8.getStatus() == 200) {
-			System.out.println("GET SUCCESS USER TAGS");
+			System.out.println("GET SUCCESS LOAD USER TAGS");
 			System.out.println(response8.readEntity(String.class));
+			} 
+		
+		Response response9 = webTarget.path("rest").path("removeusertag").request("application/json").cookie(response2.getCookies().get("token")).cookie(response2.getCookies().get("email")).post(Entity.json(jsonInStringTag));
+		if (response9.getStatus() != 200) {
+			throw new RuntimeException("Failure HTTP Status : " + response9.getStatus());
+			}
+		if (response9.getStatus() == 200) {
+			System.out.println("POST SUCCESS REMOVE USER TAGS");
+			System.out.println(response9.readEntity(String.class));
 			} 
 			
 		//TestingSQLFunction.Test();

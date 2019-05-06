@@ -43,7 +43,6 @@ public class TagSaveUser
                  
                  for(int i = 0; i <= tags.size() - 1; i++) {
                 	 sql = ("INSERT INTO INTERESTS VALUES ('" + tags.get(i).gettag() + "', '" + email + "')");
-                	 System.out.println(sql);
                 	 ps.execute(sql);
                  }
                  ps.close();
