@@ -139,6 +139,13 @@ Select distinct course.course_subject, course.course_number, course.course_name
 from course, hasquality
 where course.course_subject!=HASQUALITY.course_subject AND course.course_number!=HASQUALITY.course_number;
 
+Select course_subject, course_number, course_name
+From course
+Left join hasquality using (course_subject, course_number)
+where hasquality.course_subject is null and hasquality.course_number is null;
+
+select distinct course_number from hasquality;
+
 	INSERT INTO hasquality values ('IFSC', '1105', 'First Year');
 	INSERT INTO hasquality values ('IFSC', '1110', 'Ethics');
 	INSERT INTO hasquality values ('IFSC', '1110', 'Intro');
@@ -172,3 +179,19 @@ where course.course_subject!=HASQUALITY.course_subject AND course.course_number!
 	INSERT INTO hasquality values ('IFSC', '4392', 'Software');
 	INSERT INTO hasquality values ('IFSC', '4396', 'Capstone');
 	INSERT INTO hasquality values ('IFSC', '4398', 'Capstone');
+    
+	INSERT INTO hasquality values ('CPSC', '2382', 'Computer Systems');
+	INSERT INTO hasquality values ('CPSC', '2391', 'Software');
+	INSERT INTO hasquality values ('CPSC', '3372', 'Computer Systems');
+	INSERT INTO hasquality values ('CPSC', '3375', 'Database');
+	INSERT INTO hasquality values ('CPSC', '3381', 'COBOL');
+	INSERT INTO hasquality values ('CPSC', '3385', 'Multimedia');
+	INSERT INTO hasquality values ('CPSC', '3386', 'Data Storage');
+	INSERT INTO hasquality values ('CPSC', '3387', 'Simulation');
+	INSERT INTO hasquality values ('CPSC', '3391', 'Software');
+-- INSERT INTO hasquality values ('CPSC', '4370', 'Theory');
+-- INSERT INTO hasquality values ('CPSC', '4382', 'Theory');
+	INSERT INTO hasquality values ('CPSC', '4391', 'Software');
+	INSERT INTO hasquality values ('CPSC', '4399', 'Software');
+-- INSERT INTO hasquality values ('IFSC', '4301', 'Data Science');
+	INSERT INTO hasquality values ('IFSC', '4345', 'Data Management');
